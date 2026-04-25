@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
     // object size of a single tile
     [SerializeField] Vector2 tileSize;
     // 2d array of tile objects
-    [SerializeField] TileTemp[][] tiles;
+    [SerializeField] TileBase[][] tiles;
     // prefab of the tile to spawn
     [SerializeField] GameObject tilePrefabs;
     // parent object to hold all the tile objects in hierarchy
@@ -35,12 +35,12 @@ public class GridManager : MonoBehaviour
     {
         tileSize = tilePrefabs.GetComponent<SpriteRenderer>().bounds.size;
 
-        if (tiles != null)  ClearGrid();
+        if (tiles != null) ClearGrid();
 
-        tiles = new TileTemp[(int)gridSize.x][];
+        tiles = new TileBase[(int)gridSize.x][];
         for (int i = 0; i < gridSize.x; i++)
         {
-            tiles[i] = new TileTemp[(int)gridSize.y];
+            tiles[i] = new TileBase[(int)gridSize.y];
 
             // spawn empty tile on every grid position
             for (int j = 0; j < gridSize.y; j++)
@@ -48,8 +48,8 @@ public class GridManager : MonoBehaviour
                 GameObject newObj = Instantiate(tilePrefabs, new Vector2(i * (tileSize.x + gridGap.x), j * (tileSize.y + gridGap.y)), Quaternion.identity);
                 newObj.transform.SetParent(tileParent);
 
-                TileTemp tile = newObj.GetComponent<TileTemp>();
-                tiles[i][j] = tile;
+                TileBase tile = newObj.GetComponent<TileBase>();
+                PutTileOnGrid(tile, new Vector2(i, j));
             }
         }
     }
@@ -72,13 +72,67 @@ public class GridManager : MonoBehaviour
     }
 
     // place a tile on the grid at the specified position if it's available
-    void PutTileOnGrid(TileTemp tile, Vector2 position) { }
+    void PutTileOnGrid(TileBase tile, Vector2 position)
+    {
+        if (CheckPositionAvailability(position))
+        {
+            // place the tile on the grid
+            tiles[(int)position.x][(int)position.y] = tile;
+
+            // save position in tile object
+            // tile.setCellPosition(position);
+        }
+    }
 
     // remove a tile from the grid at the specified position if there's a tile there
-    void RemoveTileFromGrid(Vector2 position) { }
+    void RemoveTileFromGrid(Vector2 position)
+    {
+        if (CheckPositionOccupied(position))
+        {
+            // replace the tile with an empty tile
+            tiles[(int)position.x][(int)position.y] = tilePrefabs.GetComponent<TileBase>();
+        }
+    }
 
     // check if the specified position on the grid is available for placing a tile
-    void CheckPositionAvailability(Vector2 position) { }
+    bool CheckPositionAvailability(Vector2 position)
+    {
+        // check if the position is within the grid bounds
+        if (position.x < 0 || position.x >= gridSize.x || position.y < 0 || position.y >= gridSize.y)
+        {
+            Debug.Log("Position is out of bounds");
+            return false;
+        }
 
-    
+        // check if there's already a tile at the position
+        if (tiles[(int)position.x][(int)position.y] != null)
+        {
+            Debug.Log("There's already a tile at this position");
+            return false;
+        }
+
+        return true;
+    }
+
+    // check if the specified position on the occupied by a tile
+    bool CheckPositionOccupied(Vector2 position)
+    {
+        // check if the position is within the grid bounds
+        if (position.x < 0 || position.x >= gridSize.x || position.y < 0 || position.y >= gridSize.y)
+        {
+            Debug.Log("Position is out of bounds");
+            return false;
+        }
+
+        // check if there's already a tile at the position
+        if (tiles[(int)position.x][(int)position.y] != null)
+        {
+            return true;
+        }
+
+        Debug.Log("There's no tile at this position");
+        return false;
+    }
+
+
 }
