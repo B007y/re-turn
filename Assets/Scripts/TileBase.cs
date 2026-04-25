@@ -16,7 +16,7 @@ public class TileBase : MonoBehaviour
     //west = 4
     bool selected = false;
     Collider2D tileCollider;
-    GridChecker gridCheckerRef;
+    GridManager gridManagerRef;
 
     bool locked = false;
 
@@ -25,7 +25,7 @@ public class TileBase : MonoBehaviour
     void Start()
     {
         tileCollider = this.gameObject.GetComponent<Collider2D>();
-        gridCheckerRef = FindAnyObjectByType<GridChecker>();
+        gridManagerRef = FindAnyObjectByType<GridManager>();
     }
 
     // Update is called once per frame
@@ -48,13 +48,23 @@ public class TileBase : MonoBehaviour
 
                 Vector2 roundVector2 = new Vector2(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
 
-                if(gridCheckerRef.FillCheck(roundVector2) == true)
+                if(gridManagerRef.CheckPositionAvailability(roundVector2) == true)
                 {
                     this.transform.SetPositionAndRotation(roundVector2 , transform.rotation);
+                    gridManagerRef.PutTileOnGrid(this, roundVector2);
                     cellPosition = roundVector2;
+                    selected = !selected;
                 }
             }
-            selected = !selected;
+            else
+            {
+                selected = !selected;
+                if (cellPosition != null) 
+                {
+                    gridManagerRef.RemoveTileFromGrid(cellPosition);
+                }
+            }
+            
         }
         
 
