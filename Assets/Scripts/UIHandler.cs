@@ -6,6 +6,7 @@ public class UIHandler : MonoBehaviour
 {
     public Button escape;
     public Button restart;
+    public Image overlay;
     bool EscapeMenuOpen;
     public InputAction ESCKey;
     public float TimerSeconds = 0;
@@ -31,12 +32,14 @@ public class UIHandler : MonoBehaviour
             { 
                 escape.gameObject.SetActive(true); 
                 restart.gameObject.SetActive(true);
+                overlay.gameObject.SetActive(true);
                 EscapeMenuOpen = true;
             }
             else
             {
                 escape.gameObject.SetActive(false);
                 restart.gameObject.SetActive(false);
+                overlay.gameObject.SetActive(false);
                 EscapeMenuOpen= false;
             }
         }
