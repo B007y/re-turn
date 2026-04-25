@@ -14,6 +14,7 @@ public class UIHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Key input turning on
         ESCKey.Enable();
     }
 
@@ -41,11 +42,13 @@ public class UIHandler : MonoBehaviour
         }
     }
 
+    // Quitting game button functionality
     public void Escape()
     {
         Application.Quit();
     }
 
+    // Restart button functionality
     public void Restart()
     {
         SceneManager.LoadScene(0);
