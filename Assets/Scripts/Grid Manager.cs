@@ -78,6 +78,7 @@ public class GridManager : MonoBehaviour
         {
             // place the tile on the grid
             tiles[(int)position.x][(int)position.y] = tile;
+            tile.transform.SetParent(tileParent);
 
             // save position in tile object
             // tile.setCellPosition(position);
