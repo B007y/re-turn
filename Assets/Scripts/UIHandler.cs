@@ -48,6 +48,6 @@ public class UIHandler : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(Application.dataPath);
+        SceneManager.LoadScene(0);
     }
 }
