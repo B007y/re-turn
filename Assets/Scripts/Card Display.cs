@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
-    CardTemp card;
+    public CardTemp card;
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI nameText;
     System.Action<CardDisplay> onClickCallback;
@@ -38,7 +38,6 @@ public class CardDisplay : MonoBehaviour
     // callback -------------------
     public void OnCardClicked()
     {
-        Debug.Log("Clicked on card: " + card.cardName);
         onClickCallback?.Invoke(this);
     }
 

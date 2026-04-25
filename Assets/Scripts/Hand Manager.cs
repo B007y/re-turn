@@ -10,6 +10,9 @@ public class HandManager : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
     [SerializeField] Transform handParent;
 
+    [SerializeField] PlayerInput playerInput;
+    private InputAction rightClickAction;
+
     void Start()
     {
         // Example cards for testing
@@ -18,6 +21,13 @@ public class HandManager : MonoBehaviour
 
         AddCard(card1);
         AddCard(card2);
+
+        rightClickAction = playerInput?.actions.FindActionMap("UI").FindAction("RightClick");
+        if (rightClickAction != null)
+        {
+            rightClickAction.performed += ctx => DeselectCard();
+            rightClickAction.Enable();
+        }
     }
 
     // add a card to the hand, if the hand is not full
@@ -58,6 +68,8 @@ public class HandManager : MonoBehaviour
         handCards.Clear();
     }
 
+    // select a card, if the same card is selected again, play the card and deselect it
+    // hover the card and ready to play it
     void SelectCard(CardDisplay card)
     {
         if (selectedCard == card)
@@ -74,16 +86,19 @@ public class HandManager : MonoBehaviour
         card.HoverCard();
     }
 
+    // deselect the currently selected card
     void DeselectCard()
     {
         selectedCard?.UnhoverCard();
         selectedCard = null;
     }
 
+    // play the selected card and remove it from the hand
     void PlayCard(CardDisplay card)
     {
         // Implement card play logic here
         // todo
+        // card.card.Play();
         RemoveCard(card);
     }
 
