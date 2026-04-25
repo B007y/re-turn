@@ -4,9 +4,9 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     // size of the board
-    [SerializeField] Vector2 gridSize;
+    [SerializeField] Vector2Int gridSize;
     // gap between tiles
-    [SerializeField] Vector2 gridGap;
+    [SerializeField] Vector2Int gridGap;
     // object size of a single tile
     [SerializeField] Vector2 tileSize;
     // 2d array of tile objects
@@ -41,7 +41,7 @@ public class GridManager : MonoBehaviour
         for (int i = 0; i < gridSize.x; i++)
         {
             tiles[i] = new TileBase[(int)gridSize.y];
-
+            
             // spawn empty tile on every grid position
             for (int j = 0; j < gridSize.y; j++)
             {
@@ -49,7 +49,7 @@ public class GridManager : MonoBehaviour
                 newObj.transform.SetParent(tileParent);
 
                 TileBase tile = newObj.GetComponent<TileBase>();
-                PutTileOnGrid(tile, new Vector2(i, j));
+               // PutTileOnGrid(tile, new Vector2(i, j));
             }
         }
     }
@@ -72,7 +72,7 @@ public class GridManager : MonoBehaviour
     }
 
     // place a tile on the grid at the specified position if it's available
-    void PutTileOnGrid(TileBase tile, Vector2 position)
+    public void PutTileOnGrid(TileBase tile, Vector2 position)
     {
         if (CheckPositionAvailability(position))
         {
@@ -85,17 +85,17 @@ public class GridManager : MonoBehaviour
     }
 
     // remove a tile from the grid at the specified position if there's a tile there
-    void RemoveTileFromGrid(Vector2 position)
+    public void RemoveTileFromGrid(Vector2 position)
     {
         if (CheckPositionOccupied(position))
         {
             // replace the tile with an empty tile
-            tiles[(int)position.x][(int)position.y] = tilePrefabs.GetComponent<TileBase>();
+            tiles[(int)position.x][(int)position.y] = null;
         }
     }
 
     // check if the specified position on the grid is available for placing a tile
-    bool CheckPositionAvailability(Vector2 position)
+    public bool CheckPositionAvailability(Vector2 position)
     {
         // check if the position is within the grid bounds
         if (position.x < 0 || position.x >= gridSize.x || position.y < 0 || position.y >= gridSize.y)
