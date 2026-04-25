@@ -693,6 +693,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5845322045634282853, guid: 2feb2007abad999449e609335d8a126f, type: 3}
+      propertyPath: tileSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f46890f56bf634418274e8337394bb4, type: 2}
     - target: {fileID: 5916601933299951195, guid: 2feb2007abad999449e609335d8a126f, type: 3}
       propertyPath: m_Name
       value: Hand

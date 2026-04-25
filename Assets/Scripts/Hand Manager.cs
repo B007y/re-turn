@@ -16,14 +16,16 @@ public class HandManager : MonoBehaviour
     [SerializeField] PlayerInput playerInput;
     private InputAction rightClickAction;
 
+    [Header("debug")]
+    [SerializeField] Tile tileSO;
+
     void Start()
     {
         // Example cards for testing
-        TileData card1 = new TileData("Card1", null);
-        TileData card2 = new TileData("Card2", null);
+        // TileData card2 = new TileData("Card2", null);
 
-        AddCard(card1);
-        AddCard(card2);
+        AddCard(tileSO);
+        // AddCard(card2);
 
         // hook right click action to deselect card
         rightClickAction = playerInput?.actions.FindActionMap("UI").FindAction("RightClick");
@@ -35,7 +37,7 @@ public class HandManager : MonoBehaviour
     }
 
     // add a card to the hand, if the hand is not full
-    public void AddCard(TileData tile)
+    public void AddCard(Tile tile)
     {
         if (handCards.Count < maxCards)
         {
@@ -137,17 +139,4 @@ public class HandManager : MonoBehaviour
         SelectCard(card);
     }
 
-}
-public class TileData
-{
-    public string tileName;
-    public Sprite tileSprite;
-    public int[] openDirections;
-
-    public TileData(string name, Sprite sprite)
-    {
-        this.tileName = name;
-        this.tileSprite = sprite;
-        this.openDirections = new int[] {1, 2};
-    }
 }

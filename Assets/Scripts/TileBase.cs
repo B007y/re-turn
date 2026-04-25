@@ -40,10 +40,10 @@ public class TileBase : MonoBehaviour
         }
     }
 
-    public void Init(TileData tileData, System.Action<int> OnCardPlayed = null)
+    public void Init(Tile tileData, System.Action<int> OnCardPlayed = null)
     {
-        this.tileName = tileData.tileName;
-        this.tileSprite = tileData.tileSprite;
+        this.tileName = tileData.TileName;
+        this.tileSprite = tileData.sprite;
         this.openDirections = tileData.openDirections;
         this.onCardPlayedCallback = OnCardPlayed;
 
