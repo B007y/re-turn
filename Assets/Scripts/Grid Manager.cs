@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
     // object size of a single tile
     [SerializeField] Vector2 tileSize;
     // 2d array of tile objects
-    [SerializeField] TileTemp[][] tiles;
+    [SerializeField] TileBase[][] tiles;
     // prefab of the tile to spawn
     [SerializeField] GameObject tilePrefabs;
     // parent object to hold all the tile objects in hierarchy
@@ -37,10 +37,10 @@ public class GridManager : MonoBehaviour
 
         if (tiles != null)  ClearGrid();
 
-        tiles = new TileTemp[(int)gridSize.x][];
+        tiles = new TileBase[(int)gridSize.x][];
         for (int i = 0; i < gridSize.x; i++)
         {
-            tiles[i] = new TileTemp[(int)gridSize.y];
+            tiles[i] = new TileBase[(int)gridSize.y];
 
             // spawn empty tile on every grid position
             for (int j = 0; j < gridSize.y; j++)
@@ -48,7 +48,7 @@ public class GridManager : MonoBehaviour
                 GameObject newObj = Instantiate(tilePrefabs, new Vector2(i * (tileSize.x + gridGap.x), j * (tileSize.y + gridGap.y)), Quaternion.identity);
                 newObj.transform.SetParent(tileParent);
 
-                TileTemp tile = newObj.GetComponent<TileTemp>();
+                TileBase tile = newObj.GetComponent<TileBase>();
                 tiles[i][j] = tile;
             }
         }
@@ -72,7 +72,7 @@ public class GridManager : MonoBehaviour
     }
 
     // place a tile on the grid at the specified position if it's available
-    void PutTileOnGrid(TileTemp tile, Vector2 position) { }
+    void PutTileOnGrid(TileBase tile, Vector2 position) { }
 
     // remove a tile from the grid at the specified position if there's a tile there
     void RemoveTileFromGrid(Vector2 position) { }
