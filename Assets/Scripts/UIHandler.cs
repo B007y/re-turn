@@ -4,13 +4,18 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 public class UIHandler : MonoBehaviour
 {
-    public Button escape;
-    public Button restart;
-    public Image overlay;
+    // UI Elements
+    [SerializeField] Button escape;
+    [SerializeField] Button restart;
+    [SerializeField] Image overlay;
+    // Whether the UI is on or not
     bool EscapeMenuOpen;
-    public InputAction ESCKey;
-    public float TimerSeconds = 0;
+    
+    // Keys and key restrictions
+    [SerializeField] InputAction ESCKey;
+    [SerializeField] float TimerSeconds = 0;
     float Timer = 0;
+    //test
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,6 +59,7 @@ public class UIHandler : MonoBehaviour
     // Restart button functionality
     public void Restart()
     {
+        // TODO : make sure to set the scene properly
         SceneManager.LoadScene(0);
     }
 }
