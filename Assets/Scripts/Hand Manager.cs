@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class HandManager : MonoBehaviour
 {
@@ -10,18 +11,23 @@ public class HandManager : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
     [SerializeField] Transform handParent;
 
+    TileBase selectedTile;
+
     [SerializeField] PlayerInput playerInput;
     private InputAction rightClickAction;
+
+    [Header("debug")]
+    [SerializeField] Tile tileSO;
 
     void Start()
     {
         // Example cards for testing
-        CardTemp card1 = new CardTemp("Card1", null);
-        CardTemp card2 = new CardTemp("Card2", null);
+        // TileData card2 = new TileData("Card2", null);
 
-        AddCard(card1);
-        AddCard(card2);
+        AddCard(tileSO);
+        // AddCard(card2);
 
+        // hook right click action to deselect card
         rightClickAction = playerInput?.actions.FindActionMap("UI").FindAction("RightClick");
         if (rightClickAction != null)
         {
@@ -31,14 +37,14 @@ public class HandManager : MonoBehaviour
     }
 
     // add a card to the hand, if the hand is not full
-    public void AddCard(CardTemp card)
+    public void AddCard(Tile tile)
     {
         if (handCards.Count < maxCards)
         {
             GameObject newCard = Instantiate(cardPrefab, handParent);
 
             CardDisplay cardDisplay = newCard.GetComponent<CardDisplay>();
-            cardDisplay.SetCard(card, OnCardClicked);
+            cardDisplay.SetCard(tile, OnCardClicked);
 
             handCards.Add(cardDisplay);
         }
@@ -49,10 +55,13 @@ public class HandManager : MonoBehaviour
     }
 
     // remove a card from the hand
-    public void RemoveCard(CardDisplay card)
+    public void RemoveCard(CardDisplay card, bool played = false)
     {
         if (handCards.Contains(card))
         {
+            if (selectedCard == card)
+                DeselectCard(played);
+
             handCards.Remove(card);
             Destroy(card.gameObject);
         }
@@ -74,8 +83,6 @@ public class HandManager : MonoBehaviour
     {
         if (selectedCard == card)
         {
-            PlayCard(card);
-            DeselectCard();
             return;
         }
         else if (selectedCard != null)
@@ -84,28 +91,52 @@ public class HandManager : MonoBehaviour
         }
         selectedCard = card;
         card.HoverCard();
+
+        TileBase tile = TilesObjPool.Instance.GetTile();
+        selectedTile = tile;
+        tile.Init(card.tileData, OnPlayCard);
+        tile.SelectTile();
     }
 
     // deselect the currently selected card
-    void DeselectCard()
+    void DeselectCard(bool played = false)
     {
         selectedCard?.UnhoverCard();
         selectedCard = null;
+
+        // return the tile to the pool id not played
+        if (!played)
+        {
+            TilesObjPool.Instance.ReturnTile(selectedTile);
+        }
+        selectedTile?.DeselectTile();
+        selectedTile = null;
     }
 
     // play the selected card and remove it from the hand
-    void PlayCard(CardDisplay card)
-    {
-        // Implement card play logic here
-        // todo
-        // card.card.Play();
-        RemoveCard(card);
-    }
+    // public void OnPlayCard(CardDisplay card)
+    // {
+    //     // Implement card play logic here
+    //     // card.card.Play();
+
+    //     // assume all cards are tile
+    //     RemoveCard(card);
+    // }
+
 
     // callback -----------------
+    // remove the card from hand
+    public void OnPlayCard(int x)
+    {
+        // assume all cards are tile
+        bool played = x == 0;
+        RemoveCard(selectedCard, played);
+    }
+
     // set the selected card when a card is clicked
     public void OnCardClicked(CardDisplay card)
     {
         SelectCard(card);
     }
+
 }
