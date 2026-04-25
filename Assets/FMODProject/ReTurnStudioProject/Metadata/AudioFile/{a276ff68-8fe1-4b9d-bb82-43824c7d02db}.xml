@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{a276ff68-8fe1-4b9d-bb82-43824c7d02db}">
+		<property name="assetPath">
+			<value>Lute+Harp.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>67.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5df92e5c-c636-494d-a9ed-c7c5c6a0d83b}</destination>
+		</relationship>
+	</object>
+</objects>
