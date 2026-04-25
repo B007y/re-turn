@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4e9290b9fdad59441aa64a3d0a684c7e
+guid: 046f94e4425972c43abd4dc39a4e582b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2786631654220803096
-    second: cornertile4_0
+      213: 5159331049549941161
+    second: crossroad_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cornertile4_0
+      name: crossroad_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81ca0bda9ba1ca620800000000000000
-      internalID: 2786631654220803096
+      spriteID: 9a941171140a99740800000000000000
+      internalID: 5159331049549941161
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cornertile4_0: 2786631654220803096
+      crossroad_0: 5159331049549941161
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
