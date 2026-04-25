@@ -711,6 +711,103 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 259187657533626311, guid: 2feb2007abad999449e609335d8a126f, type: 3}
   m_PrefabInstance: {fileID: 1532191144}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1567467024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567467026}
+  - component: {fileID: 1567467025}
+  m_Layer: 0
+  m_Name: Main Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1567467025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567467024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce477b52fc8761140a3b7ba8976911b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainDeck
+  MaxCard: -1
+  levelTiles:
+  - tile: {fileID: 11400000, guid: 3f46890f56bf634418274e8337394bb4, type: 2}
+    count: 3
+  - tile: {fileID: 11400000, guid: 9467173699f0eec4ebf0cd50201e6cc3, type: 2}
+    count: 2
+  - tile: {fileID: 11400000, guid: aeb32647a2adcff4f905b48f38a52d82, type: 2}
+    count: 4
+--- !u!4 &1567467026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567467024}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.95446, y: 0.22698, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1906425420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906425422}
+  - component: {fileID: 1906425421}
+  m_Layer: 0
+  m_Name: Discard Pile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1906425421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906425420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e688876f58db25f48b8a4c23167edbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscardPile
+  MaxCard: -1
+--- !u!4 &1906425422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906425420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.95446, y: 0.22698, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930397291
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,3 +976,5 @@ SceneRoots:
   - {fileID: 936855329}
   - {fileID: 149046999}
   - {fileID: 1930397293}
+  - {fileID: 1567467026}
+  - {fileID: 1906425422}

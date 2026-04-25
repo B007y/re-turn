@@ -3,14 +3,13 @@ using UnityEngine;
 [System.Serializable]
 public struct TileEntry
 {
-    public GameObject tilePrefab;
+    public Tile tile;
     public int count;
 }
 
 public class MainDeck : TileCollection
 {
     [SerializeField] TileEntry[] levelTiles;
-    [SerializeField] Transform spawnParent;
 
     void Start()
     {
@@ -24,25 +23,24 @@ public class MainDeck : TileCollection
         {
             for (int i = 0; i < entry.count; i++)
             {
-                GameObject obj = Instantiate(entry.tilePrefab, spawnParent);
-                TileBase tile = obj.GetComponent<TileBase>();
+                Tile tile = entry.tile;
                 if (tile != null)
                     Add(tile);
                 else
-                    Debug.LogWarning($"Prefab {entry.tilePrefab.name} has no TileBase component.");
+                    Debug.LogWarning($"Prefab {entry.tile.name} has no Tile component.");
             }
         }
     }
 
-    public void DealAllTo(PlayerHand hand)
+    public void DealAllTo(TileCollection hand)
     {
-        TileBase[] snapshot = new TileBase[tiles.Count];
+        Tile[] snapshot = new Tile[tiles.Count];
         tiles.CopyTo(snapshot);
-        foreach (TileBase tile in snapshot)
+        foreach (Tile tile in snapshot)
             TransferTo(tile, hand);
     }
 
-    public bool DealOneTo(PlayerHand hand)
+    public bool DealOneTo(TileCollection hand)
     {
         if (tiles.Count == 0) return false;
         TransferTo(tiles[0], hand);
