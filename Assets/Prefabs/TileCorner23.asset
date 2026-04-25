@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 866192de753888542b0f093764051769, type: 3}
-  m_Name: TileCorner12
+  m_Name: TileCorner23
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  TileName: TileCorner12
-  sprite: {fileID: 5650234344533002703, guid: 7936d499ee648f94ba6d885751925cfd, type: 3}
-  openDirections: 0100000002000000
+  TileName: TileCorner23
+  sprite: {fileID: 2786631654220803096, guid: 4e9290b9fdad59441aa64a3d0a684c7e, type: 3}
+  openDirections: 0200000003000000
