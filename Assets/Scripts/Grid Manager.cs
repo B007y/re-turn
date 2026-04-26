@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 
 public class GridManager : MonoBehaviour
 {
+    // singleton 
+    public static GridManager Instance { get; private set; }
+
     // size of the board
     [SerializeField] Vector2Int gridSize;
     // gap between tiles
@@ -41,6 +44,15 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         tileSOList = Resources.LoadAll<Tile>("TilesSO").ToList();
         Debug.Log("Loaded " + tileSOList.Count + " tile scriptable objects.");
     }
@@ -65,7 +77,7 @@ public class GridManager : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2Int gridPosition = new Vector2Int(Mathf.RoundToInt(mousePosition.x / (tileSize.x + gridGap.x)), Mathf.RoundToInt(mousePosition.y / (tileSize.y + gridGap.y)));
 
-        if (gridPosition.x <= 0 || gridPosition.x >= gridSize.x - 1 || gridPosition.y <= 0 || gridPosition.y >= gridSize.y - 1)
+        if (gridPosition.x < 0 || gridPosition.x >= gridSize.x || gridPosition.y < 0 || gridPosition.y >= gridSize.y)
         {
             Debug.Log("Clicked position is out of bounds");
             return;
@@ -93,10 +105,8 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        onRotationPlayedCallback?.Invoke(0);
-
         // Rotate the anchor point
-        StartCoroutine(RotateTiles(tilesToRotate, gridPosition));
+        StartCoroutine(RotateTiles(tilesToRotate, center));
     }
 
     // rotation animaiton, update the tiles array after the animation is done
@@ -151,6 +161,9 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        onRotationPlayedCallback?.Invoke(0);
+
         yield return 0;
     }
 
@@ -373,40 +386,44 @@ public class GridManager : MonoBehaviour
             case 1:
                 {
                     if (startPosition.y == gridSize.y - 1) break;
-                    if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
+                    TileBase tile = tiles[(int)startPosition.y + 1][(int)startPosition.x];
+                    if (tile != null)
                     {
-                        if (tiles[(int)startPosition.y + 1][(int)startPosition.x].GetDirectionValid(3))
-                            return tiles[(int)startPosition.y + 1][(int)startPosition.x];
+                        if (tile.GetDirectionValid(3))
+                            return tile;
                     }
                     break;
                 }
             case 2:
                 {
                     if (startPosition.x == gridSize.x - 1) break;
-                    if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
+                    TileBase tile = tiles[(int)startPosition.y][(int)startPosition.x + 1];
+                    if (tile != null)
                     {
-                        if (tiles[(int)startPosition.y][(int)startPosition.x + 1].GetDirectionValid(4))
-                            return tiles[(int)startPosition.y][(int)startPosition.x + 1];
+                        if (tile.GetDirectionValid(4))
+                            return tile;
                     }
                     break;
                 }
             case 3:
                 {
                     if (startPosition.y == 0) break;
-                    if (tiles[(int)startPosition.y - 1][(int)startPosition.x] != null)
+                    TileBase tile = tiles[(int)startPosition.y - 1][(int)startPosition.x];
+                    if (tile != null)
                     {
-                        if (tiles[(int)startPosition.y - 1][(int)startPosition.x].GetDirectionValid(1))
-                            return tiles[(int)startPosition.y - 1][(int)startPosition.x];
+                        if (tile.GetDirectionValid(1))
+                            return tile;
                     }
                     break;
                 }
             case 4:
                 {
                     if (startPosition.x == 0) break;
-                    if (tiles[(int)startPosition.y][(int)startPosition.x - 1] != null)
+                    TileBase tile = tiles[(int)startPosition.y][(int)startPosition.x - 1];
+                    if (tile != null)
                     {
-                        if (tiles[(int)startPosition.y][(int)startPosition.x - 1].GetDirectionValid(2))
-                            return tiles[(int)startPosition.y][(int)startPosition.x - 1];
+                        if (tile.GetDirectionValid(2))
+                            return tile;
                     }
                     break;
                 }
@@ -421,7 +438,7 @@ public class GridManager : MonoBehaviour
         {
             for (int j = 0; j < gridSize.x; j++)
             {
-                gridmsg += (tiles[i][j] == null ? "0" : "1");
+                gridmsg += (tiles[gridSize.y - 1 - i][j] == null ? "0" : "1");
             }
             gridmsg += "\n";
         }

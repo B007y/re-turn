@@ -45,7 +45,7 @@ public class TileBase : MonoBehaviour
     {
         this.tileData = tileData;
         this.tileSprite = tileData.sprite;
-        this.openDirections = tileData.openDirections;
+        this.openDirections = tileData.openDirections.Clone() as int[];
         this.onCardPlayedCallback = OnCardPlayed;
 
         SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
@@ -59,11 +59,7 @@ public class TileBase : MonoBehaviour
     {
         if (selected)
         {
-            if (tileData.isRotationCard)
-            {
-                gridManagerRef.InitRotation(tileData, onCardPlayedCallback);
-            }
-            else
+            if (!tileData.isRotationCard)
             {
                 PlaceTile();
             }
@@ -73,6 +69,10 @@ public class TileBase : MonoBehaviour
     public void SelectTile()
     {
         selected = true;
+        if (tileData.isRotationCard)
+        {
+            GridManager.Instance.InitRotation(tileData, onCardPlayedCallback);
+        }
     }
 
     public void DeselectTile()
