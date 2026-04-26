@@ -83,10 +83,11 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer(int Direction)
     {
         if (CurrentTile == null) SetPlayer();
+
+        SetPlayerFacing(Direction);
         if (!CurrentTile.GetDirectionValid(Direction)) return;
         if (timer > 0) return;
         if (moveCoroutine != null) return;
-
 
         timer = TimerMax;
 
@@ -103,6 +104,19 @@ public class PlayerMovement : MonoBehaviour
 
         //Vector2 position = transform.position;
 
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Footsteps", Vector3.zero);
+        if (moveCoroutine == null)
+        {
+            if (CheckWalkingOutsideBorder(Direction))
+                moveCoroutine = StartCoroutine(MovePlayerOutsideBorderCoroutine(tile.transform.position, Direction));
+            else
+                moveCoroutine = StartCoroutine(MovePlayerCoroutine(tile.transform.position));
+        }
+        CurrentTile = tile;
+    }
+
+    void SetPlayerFacing(int Direction)
+    {
         // 1 = up | 2 = right | 3 = down | 4 = left
         switch (Direction)
         {
@@ -127,17 +141,8 @@ public class PlayerMovement : MonoBehaviour
                     break;
                 }
         }
-
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Footsteps", Vector3.zero);
-        if (moveCoroutine == null)
-        {
-            if (CheckWalkingOutsideBorder(Direction))
-                moveCoroutine = StartCoroutine(MovePlayerOutsideBorderCoroutine(tile.transform.position, Direction));
-            else
-                moveCoroutine = StartCoroutine(MovePlayerCoroutine(tile.transform.position));
-        }
-        CurrentTile = tile;
     }
+
 
     bool CheckWalkingOutsideBorder(int Direction)
     {
