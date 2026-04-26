@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
@@ -39,6 +40,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
 
+    TileBase spawnedEndingTile;
 
     void Awake()
     {
@@ -239,6 +241,7 @@ public class GridManager : MonoBehaviour
             roundVector2 = new Vector2(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
         }
         PutTileOnGrid(tile, roundVector2);
+        spawnedEndingTile = tile;
     }
 
     // delete all the tile objects on the grid and clear the 2d array
@@ -387,41 +390,98 @@ public class GridManager : MonoBehaviour
         {
             case 1:
                 {
-                    if (startPosition.y == gridSize.y - 1) break;
+                    // if at the edge of the screen, checks if there is a tile on the opposite end to wrap to.
+                    if (startPosition.y == gridSize.y - 1)
+                    {
+                        if (tiles[(int)startPosition.x][0] != null)
+                        {
+                            if (tiles[(int)startPosition.x][0].GetDirectionValid(3))
+                            {
+                                CheckPlayerReachedEnd(tiles[(int)startPosition.x][0]);
+                                return tiles[(int)startPosition.x][0];
+                            }
+                        }
+                        break; 
+                    }
                     if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
                     {
-                        if (tiles[(int)startPosition.y + 1][(int)startPosition.x].GetDirectionValid(3))
-                            return tiles[(int)startPosition.y + 1][(int)startPosition.x];
+                        if (tiles[(int)startPosition.x][(int)startPosition.y + 1].GetDirectionValid(3))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x][(int)startPosition.y + 1]);
+                            return tiles[(int)startPosition.x][(int)startPosition.y + 1];
+                        }
                     }
                     break;
                 }
             case 2:
                 {
-                    if (startPosition.x == gridSize.x - 1) break;
+                    if (startPosition.x == gridSize.x - 1)
+                    {
+                        if (tiles[0][(int)startPosition.y] != null)
+                        {
+                            if (tiles[0][(int)startPosition.y].GetDirectionValid(4))
+                            {
+                                CheckPlayerReachedEnd(tiles[0][(int)startPosition.y]);
+                                return tiles[0][(int)startPosition.y];
+                            }
+                        }
+                        break;
+                    }
                     if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
                     {
-                        if (tiles[(int)startPosition.y][(int)startPosition.x + 1].GetDirectionValid(4))
-                            return tiles[(int)startPosition.y][(int)startPosition.x + 1];
+                        if (tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x + 1][(int)startPosition.y]);
+                            return tiles[(int)startPosition.x + 1][(int)startPosition.y];
+                        }
                     }
                     break;
                 }
             case 3:
                 {
-                    if (startPosition.y == 0) break;
-                    if (tiles[(int)startPosition.y - 1][(int)startPosition.x] != null)
+                    if (startPosition.y == 0)
                     {
-                        if (tiles[(int)startPosition.y - 1][(int)startPosition.x].GetDirectionValid(1))
-                            return tiles[(int)startPosition.y - 1][(int)startPosition.x];
+                        if (tiles[(int)startPosition.x][gridSize.y - 1] != null)
+                        {
+                            if (tiles[(int)startPosition.x][gridSize.y - 1].GetDirectionValid(1))
+                            {
+                                CheckPlayerReachedEnd(tiles[(int)startPosition.x][gridSize.y - 1]);
+                                return tiles[(int)startPosition.x][gridSize.y - 1];
+                            }
+                        }
+                        break;
+                    }
+                    if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
+                    {
+                        if (tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x][(int)startPosition.y - 1]);
+                            return tiles[(int)startPosition.x][(int)startPosition.y - 1];
+                        }
                     }
                     break;
                 }
             case 4:
                 {
-                    if (startPosition.x == 0) break;
-                    if (tiles[(int)startPosition.y][(int)startPosition.x - 1] != null)
+                    if (startPosition.x == 0)
                     {
-                        if (tiles[(int)startPosition.y][(int)startPosition.x - 1].GetDirectionValid(2))
-                            return tiles[(int)startPosition.y][(int)startPosition.x - 1];
+                        if (tiles[gridSize.x - 1][(int)startPosition.y] != null)
+                        {
+                            if (tiles[gridSize.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                            {
+                                CheckPlayerReachedEnd(tiles[gridSize.x - 1][(int)startPosition.y]);
+                                return tiles[gridSize.x - 1][(int)startPosition.y];
+                            }
+                        }
+                        break;
+                    }
+                    if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
+                    {
+                        if (tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x - 1][(int)startPosition.y]);
+                            return tiles[(int)startPosition.x - 1][(int)startPosition.y];
+                        }
                     }
                     break;
                 }
@@ -453,4 +513,12 @@ public class GridManager : MonoBehaviour
     }
     #endregion
 
+
+    public void CheckPlayerReachedEnd(TileBase tile)
+    {
+        if(tile.transform.position == spawnedEndingTile.transform.position)
+        {
+            SceneManager.LoadScene("WinScene");
+        }
+    }
 }
