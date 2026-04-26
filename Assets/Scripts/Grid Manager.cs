@@ -45,6 +45,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] TileBase startingTileObj;
     [SerializeField] TileBase endingTileObj;
 
+    [Header("Game State")]
+    int turnCount = 0;
+    [SerializeField] int maxTurn = 10;
+    [SerializeField] TextMeshProUGUI turnText;
+
     TileBase spawnedEndingTile;
 
     void Awake()
@@ -66,27 +71,18 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         InitGrid();
+        turnCount = 0;
+        turnText.text = "Turn: " + (turnCount + 1) + "/" + maxTurn;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (MouseLeftAction.IsPressed() && waitingForTileChoose)
-        {
-            RotateBlock();
-        }
     }
 
     void RotateBlock()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2Int gridPosition = new Vector2Int(Mathf.RoundToInt(mousePosition.x / (tileSize.x + gridGap.x)), Mathf.RoundToInt(mousePosition.y / (tileSize.y + gridGap.y)));
-
-        if (gridPosition.x < 0 || gridPosition.x >= gridSize.x || gridPosition.y < 0 || gridPosition.y >= gridSize.y)
-        {
-            Debug.Log("Clicked position is out of bounds");
-            return;
-        }
 
         // Perform rotation logic here using the chosen tile
         waitingForTileChoose = false;
@@ -121,11 +117,12 @@ public class GridManager : MonoBehaviour
         }
 
         // Rotate the anchor point
-        StartCoroutine(RotateTiles(tilesToRotate, center));
+        Quaternion playerOriginalRotation = playerMovement.transform.rotation;
+        StartCoroutine(RotateTiles(tilesToRotate, center, playerOriginalRotation));
     }
 
     // rotation animaiton, update the tiles array after the animation is done
-    IEnumerator RotateTiles(List<TileBase> tilesToRotate, Vector2Int center)
+    IEnumerator RotateTiles(List<TileBase> tilesToRotate, Vector2Int center, Quaternion playerOriginalRotation)
     {
         float rotationTime = 0.5f; // Duration of the rotation
         float elapsedTime = 0f;
@@ -138,14 +135,19 @@ public class GridManager : MonoBehaviour
             rotationAnchor.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsedTime / rotationTime);
             elapsedTime += Time.deltaTime;
 
-            // fix player rotation
-            playerMovement.transform.eulerAngles = Vector3.zero;
             eurydice.transform.eulerAngles = Vector3.zero;
+            // fix player, start, end rotation
+            playerMovement.transform.eulerAngles = playerOriginalRotation.eulerAngles;
             startingTileObj.transform.eulerAngles = Vector3.zero;
             endingTileObj.transform.eulerAngles = Vector3.zero;
 
             yield return null;
         }
+
+        // fix player, start, end rotation
+        playerMovement.transform.eulerAngles = playerOriginalRotation.eulerAngles;
+        startingTileObj.transform.eulerAngles = Vector3.zero;
+        endingTileObj.transform.eulerAngles = Vector3.zero;
 
         rotationAnchor.transform.rotation = targetRotation;
 
@@ -552,6 +554,7 @@ public class GridManager : MonoBehaviour
         MouseLeftAction.Enable();
         waitingForTileChoose = true;
         onRotationPlayedCallback = callback;
+        RotateBlock();
     }
     #endregion
 
@@ -561,6 +564,19 @@ public class GridManager : MonoBehaviour
         if (tile.transform.position == spawnedEndingTile.transform.position)
         {
             SceneManager.LoadScene("WinScene");
+        }
+    }
+
+    public void NextTurn()
+    {
+        turnCount++;
+        if (turnCount >= maxTurn)
+        {
+            SceneManager.LoadScene("LoseScene");
+        }
+        else
+        {
+            turnText.text = "Turn: " + (turnCount + 1) + " / " + maxTurn;
         }
     }
 }
