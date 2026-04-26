@@ -24,11 +24,22 @@ public class MainDeck : TileCollection
     }
     public void FillHand()
     {
-        //handManager.WashHandToDraw();
-
-        for (int i = 0; i < 5; i++)
+        if (handManager != null)
         {
-            this.DealOneTo(handManager);
+
+            if (handManager.handCards.Count < handManager.maxCards) 
+            { 
+                handManager.WashHandToDraw();
+
+                for (int i = 0; i < 5; i++)
+                {
+                    this.DealOneTo(handManager);
+                }
+            }
+            else
+            {
+                Debug.Log("Insert play one card warning here");
+            }
         }
     }
 
