@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Tilemaps;
 
-public class HandManager : MonoBehaviour
+public class HandManager : TileCollection
 {
     int maxCards = 5;
     [SerializeField] CardDisplay selectedCard;
@@ -11,21 +10,21 @@ public class HandManager : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
     [SerializeField] Transform handParent;
 
-    TileBase selectedTile;
+    TileBase selectedTileObj;
+    [SerializeField] MainDeck mainDeck;
+    [SerializeField] DiscardPile discardPile;
 
     [SerializeField] PlayerInput playerInput;
     private InputAction rightClickAction;
 
-    [Header("debug")]
-    [SerializeField] Tile tileSO;
-
     void Start()
     {
         // Example cards for testing
-        // TileData card2 = new TileData("Card2", null);
-
-        AddCard(tileSO);
-        // AddCard(card2);
+        MaxCard = maxCards;
+        for (int i = 0; i < maxCards; i++)
+        {
+            mainDeck.DealOneTo(this);
+        }
 
         // hook right click action to deselect card
         rightClickAction = playerInput?.actions.FindActionMap("UI").FindAction("RightClick");
@@ -37,7 +36,7 @@ public class HandManager : MonoBehaviour
     }
 
     // add a card to the hand, if the hand is not full
-    public void AddCard(Tile tile)
+    protected override void OnTileAdded(Tile tile)
     {
         if (handCards.Count < maxCards)
         {
@@ -63,8 +62,25 @@ public class HandManager : MonoBehaviour
                 DeselectCard(played);
 
             handCards.Remove(card);
+            TransferTo(card.tileData, discardPile);
             Destroy(card.gameObject);
         }
+    }
+
+    protected override void OnTileRemoved(Tile tile)
+    {
+        // future: notify UI to update hand display
+    }
+
+    // return all cards in hand to the main deck and clear the hand
+    public void WashHandToDraw()
+    {
+        foreach (CardDisplay card in handCards)
+        {
+            TransferTo(card.tileData, mainDeck);
+            Destroy(card.gameObject);
+        }
+        handCards.Clear();
     }
 
     // clear the hand of all cards
@@ -75,6 +91,7 @@ public class HandManager : MonoBehaviour
             Destroy(card.gameObject);
         }
         handCards.Clear();
+        Clear();
     }
 
     // select a card, if the same card is selected again, play the card and deselect it
@@ -93,7 +110,7 @@ public class HandManager : MonoBehaviour
         card.HoverCard();
 
         TileBase tile = TilesObjPool.Instance.GetTile();
-        selectedTile = tile;
+        selectedTileObj = tile;
         tile.Init(card.tileData, OnPlayCard);
         tile.SelectTile();
     }
@@ -107,10 +124,10 @@ public class HandManager : MonoBehaviour
         // return the tile to the pool id not played
         if (!played)
         {
-            TilesObjPool.Instance.ReturnTile(selectedTile);
+            TilesObjPool.Instance.ReturnTile(selectedTileObj);
         }
-        selectedTile?.DeselectTile();
-        selectedTile = null;
+        selectedTileObj?.DeselectTile();
+        selectedTileObj = null;
     }
 
     // play the selected card and remove it from the hand

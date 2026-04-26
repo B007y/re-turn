@@ -6,13 +6,13 @@ public class DiscardPile : TileCollection
 
     public void RestoreAllTo(TileCollection destination)
     {
-        TileBase[] snapshot = new TileBase[tiles.Count];
+        Tile[] snapshot = new Tile[tiles.Count];
         tiles.CopyTo(snapshot);
-        foreach (TileBase tile in snapshot)
+        foreach (Tile tile in snapshot)
             TransferTo(tile, destination);
     }
 
-    protected override void OnTileAdded(TileBase tile)
+    protected override void OnTileAdded(Tile tile)
     {
         // future: play discard animation / sound
     }
