@@ -25,17 +25,13 @@ public class GridManager : MonoBehaviour
     [SerializeField] int rotationAngle;
     [SerializeField] int rotationRadius = 1;
     [SerializeField] GameObject rotationAnchor;
-    [SerializeField] Vector2Int rotationAnchorPos;
     [SerializeField] InputAction MouseLeftAction;
     [SerializeField] bool waitingForTileChoose = false;
 
-
-
-    [Header("Debug")]
+    [Header("Starting Setup")]
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,40 +44,45 @@ public class GridManager : MonoBehaviour
     {
         if (MouseLeftAction.IsPressed() && waitingForTileChoose)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector2Int gridPosition = new Vector2Int(Mathf.RoundToInt(mousePosition.x / (tileSize.x + gridGap.x)), Mathf.RoundToInt(mousePosition.y / (tileSize.y + gridGap.y)));
-
-            waitingForTileChoose = false;
-            if (gridPosition.x <= 0 || gridPosition.x >= gridSize.x - 1 || gridPosition.y <= 0 || gridPosition.y >= gridSize.y - 1)
-            {
-                Debug.Log("Clicked position is out of bounds");
-                return;
-            }
-
-            // Perform rotation logic here using the chosen tile
-            rotationAnchor.transform.position = new Vector2(gridPosition.x * (tileSize.x + gridGap.x), gridPosition.y * (tileSize.y + gridGap.y));
-            rotationAnchorPos = gridPosition;
-
-            List<TileBase> tilesToRotate = new();
-            for (int i = -rotationRadius; i <= rotationRadius; i++)
-            {
-                for (int j = -rotationRadius; j <= rotationRadius; j++)
-                {
-                    Vector2Int checkPosition = new Vector2Int(gridPosition.x + i, gridPosition.y + j);
-                    if (CheckPositionOccupied(checkPosition))
-                    {
-                        TileBase tileToRotate = tiles[checkPosition.y][checkPosition.x];
-                        tilesToRotate.Add(tileToRotate);
-                        tileToRotate.transform.SetParent(rotationAnchor.transform);
-                    }
-                }
-            }
-
-            // Rotate the anchor point
-            StartCoroutine(RotateTiles(tilesToRotate, gridPosition));
+            RotateBlock();
         }
     }
 
+    void RotateBlock()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2Int gridPosition = new Vector2Int(Mathf.RoundToInt(mousePosition.x / (tileSize.x + gridGap.x)), Mathf.RoundToInt(mousePosition.y / (tileSize.y + gridGap.y)));
+
+        waitingForTileChoose = false;
+        if (gridPosition.x <= 0 || gridPosition.x >= gridSize.x - 1 || gridPosition.y <= 0 || gridPosition.y >= gridSize.y - 1)
+        {
+            Debug.Log("Clicked position is out of bounds");
+            return;
+        }
+
+        // Perform rotation logic here using the chosen tile
+        rotationAnchor.transform.position = new Vector2(gridPosition.x * (tileSize.x + gridGap.x), gridPosition.y * (tileSize.y + gridGap.y));
+
+        List<TileBase> tilesToRotate = new();
+        for (int i = -rotationRadius; i <= rotationRadius; i++)
+        {
+            for (int j = -rotationRadius; j <= rotationRadius; j++)
+            {
+                Vector2Int checkPosition = new Vector2Int(gridPosition.x + i, gridPosition.y + j);
+                if (CheckPositionOccupied(checkPosition))
+                {
+                    TileBase tileToRotate = tiles[checkPosition.y][checkPosition.x];
+                    tilesToRotate.Add(tileToRotate);
+                    tileToRotate.transform.SetParent(rotationAnchor.transform);
+                }
+            }
+        }
+
+        // Rotate the anchor point
+        StartCoroutine(RotateTiles(tilesToRotate, gridPosition));
+    }
+
+    // rotation animaiton, update the tiles array after the animation is done
     IEnumerator RotateTiles(List<TileBase> tilesToRotate, Vector2Int center)
     {
         float rotationTime = 0.5f; // Duration of the rotation
