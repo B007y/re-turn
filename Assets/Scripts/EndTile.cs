@@ -4,7 +4,7 @@ public class EndTile : TileBase
 {
     GridManager gridManagerRef;
     bool end = true;
-    [SerializeField] int[] openDirections = new int[4];
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
