@@ -39,6 +39,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Starting Setup")]
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerPathFinding eurydice;
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
     [SerializeField] TileBase startingTileObj;
@@ -110,7 +111,7 @@ public class GridManager : MonoBehaviour
                     if (playerMovement.CurrentTile == tileToRotate)
                     {
                         playerMovement.transform.SetParent(rotationAnchor.transform);
-                    }
+                    }                   
                 }
             }
         }
@@ -243,6 +244,9 @@ public class GridManager : MonoBehaviour
         PutTileOnGrid(tile, roundVector2);
         playerMovement.StartingTile = tile;
         playerMovement.SetPlayer();
+
+        eurydice.StartingTile = tile;
+        eurydice.InitPosition();
     }
 
     void SpawnEndingTile()

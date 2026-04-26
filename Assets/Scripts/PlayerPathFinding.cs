@@ -11,7 +11,7 @@ public class PlayerPathFinding : MonoBehaviour
     PlayerMovement PlayerRef;
 
     // Required for finding a path
-    [SerializeField] TileBase StartingTile;
+    public TileBase StartingTile;
     [SerializeField] Vector2 StartingPosition;
 
     // How many tiles are moved per turn
@@ -26,6 +26,8 @@ public class PlayerPathFinding : MonoBehaviour
     Dictionary<Vector2, TileNode> reached;
 
     TileNode currentSearchNode;
+
+    public TileBase CurrentTile;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,20 +44,23 @@ public class PlayerPathFinding : MonoBehaviour
         {
             StartPathFinding();
             forceTesting.Disable();
-            System.Threading.Thread.Sleep(2000);
-            forceTesting.Enable();
         }
     }
 
     public void StartPathFinding()
     {
         // Gets the object's position tile (start) and the player tile (destination)
+        //Debug.Log(transform.position + " " + transform.forward);
         StartingTile = GridManagerRef.GetTileAtPosition(transform.position);
+        Debug.Log(StartingTile.transform.position);
         TileBase playerTile = GridManagerRef.GetTileAtPosition(PlayerRef.transform.position);
-        
+
         // If the player is reachable, it will start finding a path
-        if (playerTile != null)
+        if (playerTile != null && StartingTile != null)
+        {
+            startingTileNode = new TileNode(StartingTile);
             Move(GetNewPath(StartingTile, playerTile));
+        }
     }
 
     List<TileNode> GetNewPath(TileBase startTile, TileBase endTile)
@@ -64,9 +69,9 @@ public class PlayerPathFinding : MonoBehaviour
         return BuildPath(endTile);
     }
 
-    void CreatePathFromTiles(TileBase startTile, TileBase endTile)
+    void CreatePathFromTiles(TileBase pathStartTile, TileBase pathEndTile)
     {
-        startingTileNode.tile = startTile;
+        //startingTileNode.tile = pathStartTile;
 
         frontier = new Queue<TileNode>();
         reached = new Dictionary<Vector2, TileNode>();
@@ -74,7 +79,7 @@ public class PlayerPathFinding : MonoBehaviour
         currentSearchNode = null;
         
         frontier.Enqueue(startingTileNode);
-        reached.Add(startTile.transform.position, startingTileNode);
+        reached.Add(pathStartTile.transform.position, startingTileNode);
 
 
         bool active = true;
@@ -85,7 +90,7 @@ public class PlayerPathFinding : MonoBehaviour
             currentSearchNode.isExplored = true;
             ExploreNeighbors(currentSearchNode);
 
-            if(currentSearchNode.tile.transform.position == endTile.transform.position)
+            if(currentSearchNode.tile.transform.position == pathEndTile.transform.position)
             {
                 active = false;
             }
@@ -150,7 +155,14 @@ public class PlayerPathFinding : MonoBehaviour
             {
                 return;
             }
-            transform.position = move.tile.transform.position;     
+            transform.position = move.tile.transform.position;
+            CurrentTile = move.tile;
         }
+    }
+
+    public void InitPosition()
+    {
+        CurrentTile = StartingTile;
+        transform.position = CurrentTile.transform.position;
     }
 }
