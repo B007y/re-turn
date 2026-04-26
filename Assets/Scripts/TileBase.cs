@@ -1,16 +1,14 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.SceneManagement;
 
+[System.Serializable]
 public class TileBase : MonoBehaviour
 {
-    public string tileName;
+    public Tile tileData;
     public Sprite tileSprite;
 
-    Vector2 cellPosition;
+    public Vector2Int cellPosition;
     [SerializeField] int[] openDirections = new int[4];
 
     //north = 1
@@ -21,7 +19,6 @@ public class TileBase : MonoBehaviour
     Collider2D tileCollider;
     GridManager gridManagerRef;
 
-    bool locked = false;
     System.Action<int> onCardPlayedCallback;
 
 
@@ -35,18 +32,18 @@ public class TileBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // follow mouse position if selected
         if (selected)
-            if (selected)
-            {
-                Vector3 mousePositionGet = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 10);
+        {
+            Vector3 mousePositionGet = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 10);
 
-                this.transform.SetPositionAndRotation(Camera.main.ScreenToWorldPoint(mousePositionGet), transform.rotation);
-            }
+            this.transform.SetPositionAndRotation(Camera.main.ScreenToWorldPoint(mousePositionGet), transform.rotation);
+        }
     }
 
     public void Init(Tile tileData, System.Action<int> OnCardPlayed = null)
     {
-        this.tileName = tileData.TileName;
+        this.tileData = tileData;
         this.tileSprite = tileData.sprite;
         this.openDirections = tileData.openDirections;
         this.onCardPlayedCallback = OnCardPlayed;
@@ -60,35 +57,18 @@ public class TileBase : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!locked)
+        if (selected)
         {
-            if (selected)
+            if (tileData.isRotationCard)
             {
-                PlaceTile();
-
-                Vector2 roundVector2 = new Vector2(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
-
-                if (gridManagerRef.CheckPositionAvailability(roundVector2) == true)
-                {
-                    this.transform.SetPositionAndRotation(roundVector2, transform.rotation);
-                    gridManagerRef.PutTileOnGrid(this, roundVector2);
-                    cellPosition = roundVector2;
-                    selected = !selected;
-                }
+                gridManagerRef.InitRotation(tileData);
+                onCardPlayedCallback?.Invoke(0);
             }
             else
             {
-                PickTileFromGrid();
-                selected = !selected;
-                if (cellPosition != null)
-                {
-                    gridManagerRef.RemoveTileFromGrid(cellPosition);
-                }
+                PlaceTile();
             }
-
         }
-
-
     }
 
     public void SelectTile()
@@ -119,7 +99,7 @@ public class TileBase : MonoBehaviour
         {
             this.transform.SetPositionAndRotation(roundVector2, transform.rotation);
             gridManagerRef.PutTileOnGrid(this, roundVector2);
-            cellPosition = roundVector2;
+            cellPosition = new Vector2Int(Mathf.RoundToInt(roundVector2.x), Mathf.RoundToInt(roundVector2.y));
             selected = !selected;
 
 
@@ -132,46 +112,46 @@ public class TileBase : MonoBehaviour
         switch (right)
         {
             case true:
-                        foreach (int direction in openDirections)
+                foreach (int direction in openDirections)
+                {
+                    if (openDirections[direction] != 0)
+                        if (openDirections[direction] != 0)
                         {
-                            if (openDirections[direction] != 0)
-                                if (openDirections[direction] != 0)
-                                {
-                                    openDirections[direction] += amount;
+                            openDirections[direction] += amount;
 
-                                    if (openDirections[direction] < 4)
-                                    {
-                                        openDirections[direction] -= 4;
-                                        if (openDirections[direction] < 4)
-                                        {
-                                            openDirections[direction] -= 4;
-                                        }
-                                    }
-                                
-
-                                }
-
-                        }
-                        break;
-            case false:
-                        foreach (int direction in openDirections)
-                        {
-                            if (openDirections[direction] != 0)
+                            if (openDirections[direction] < 4)
                             {
-                                openDirections[direction] -= amount;
-
-                                if (openDirections[direction] > 4)
+                                openDirections[direction] -= 4;
+                                if (openDirections[direction] < 4)
                                 {
-                                    openDirections[direction] += 4;
+                                    openDirections[direction] -= 4;
                                 }
                             }
-                            
+
+
                         }
+
+                }
                 break;
-            }
-                
+            case false:
+                foreach (int direction in openDirections)
+                {
+                    if (openDirections[direction] != 0)
+                    {
+                        openDirections[direction] -= amount;
+
+                        if (openDirections[direction] > 4)
+                        {
+                            openDirections[direction] += 4;
+                        }
+                    }
+
+                }
+                break;
         }
-    
+
+    }
+
 
     public int[] GetTileDirections()
     {
