@@ -47,11 +47,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 431078970
-      Data2: 1341320473
-      Data3: 853633163
-      Data4: -1721799723
-    Path: event:/TileShuffle
+      Data1: 1432729027
+      Data2: 1282233257
+      Data3: 12208809
+      Data4: -1326745310
+    Path: event:/TileDraw
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
