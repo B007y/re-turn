@@ -15,3 +15,5 @@ MonoBehaviour:
   TileName: TileCorner34
   sprite: {fileID: 8852821539225161741, guid: 5e0bc477a2449e648b64d60feb46ac85, type: 3}
   openDirections: 0300000004000000
+  isRotationCard: 0
+  rotateClockWise: 1

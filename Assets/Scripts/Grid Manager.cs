@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 
 public class GridManager : MonoBehaviour
 {
+    // singleton 
+    public static GridManager Instance { get; private set; }
+
     // size of the board
     [SerializeField] Vector2Int gridSize;
     // gap between tiles
@@ -43,6 +46,15 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         tileSOList = Resources.LoadAll<Tile>("TilesSO").ToList();
         Debug.Log("Loaded " + tileSOList.Count + " tile scriptable objects.");
     }
@@ -67,7 +79,7 @@ public class GridManager : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2Int gridPosition = new Vector2Int(Mathf.RoundToInt(mousePosition.x / (tileSize.x + gridGap.x)), Mathf.RoundToInt(mousePosition.y / (tileSize.y + gridGap.y)));
 
-        if (gridPosition.x <= 0 || gridPosition.x >= gridSize.x - 1 || gridPosition.y <= 0 || gridPosition.y >= gridSize.y - 1)
+        if (gridPosition.x < 0 || gridPosition.x >= gridSize.x || gridPosition.y < 0 || gridPosition.y >= gridSize.y)
         {
             Debug.Log("Clicked position is out of bounds");
             return;
@@ -95,10 +107,8 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        onRotationPlayedCallback?.Invoke(0);
-
         // Rotate the anchor point
-        StartCoroutine(RotateTiles(tilesToRotate, gridPosition));
+        StartCoroutine(RotateTiles(tilesToRotate, center));
     }
 
     // rotation animaiton, update the tiles array after the animation is done
@@ -153,6 +163,9 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        onRotationPlayedCallback?.Invoke(0);
+
         yield return 0;
     }
 
@@ -481,7 +494,7 @@ public class GridManager : MonoBehaviour
         {
             for (int j = 0; j < gridSize.x; j++)
             {
-                gridmsg += (tiles[i][j] == null ? "0" : "1");
+                gridmsg += (tiles[gridSize.y - 1 - i][j] == null ? "0" : "1");
             }
             gridmsg += "\n";
         }
