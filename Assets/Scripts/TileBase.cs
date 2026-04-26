@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
 public class TileBase : MonoBehaviour
 {
     public string tileName;
     public Sprite tileSprite;
 
-    Vector2 cellPosition;
+    public Vector2Int cellPosition;
     [SerializeField] int[] openDirections = new int[4];
 
     //north = 1
@@ -72,18 +73,18 @@ public class TileBase : MonoBehaviour
                 {
                     this.transform.SetPositionAndRotation(roundVector2, transform.rotation);
                     gridManagerRef.PutTileOnGrid(this, roundVector2);
-                    cellPosition = roundVector2;
+                    cellPosition = new Vector2Int(Mathf.RoundToInt(roundVector2.x), Mathf.RoundToInt(roundVector2.y));
                     selected = !selected;
                 }
             }
             else
             {
-                PickTileFromGrid();
-                selected = !selected;
-                if (cellPosition != null)
-                {
-                    gridManagerRef.RemoveTileFromGrid(cellPosition);
-                }
+                // PickTileFromGrid();
+                // selected = !selected;
+                // if (cellPosition != null)
+                // {
+                //     gridManagerRef.RemoveTileFromGrid(cellPosition);
+                // }
             }
 
         }
@@ -119,7 +120,7 @@ public class TileBase : MonoBehaviour
         {
             this.transform.SetPositionAndRotation(roundVector2, transform.rotation);
             gridManagerRef.PutTileOnGrid(this, roundVector2);
-            cellPosition = roundVector2;
+            cellPosition = new Vector2Int(Mathf.RoundToInt(roundVector2.x), Mathf.RoundToInt(roundVector2.y));
             selected = !selected;
 
 
