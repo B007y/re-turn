@@ -79,12 +79,7 @@ public class GridManager : MonoBehaviour
         {
             // place the tile on the grid
             tiles[(int)position.x][(int)position.y] = tile;
-<<<<<<< HEAD
             Debug.Log(position);
-=======
-            tile.transform.SetParent(tileParent);
-
->>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
             // save position in tile object
             // tile.setCellPosition(position);
         }
