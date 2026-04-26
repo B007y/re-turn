@@ -754,6 +754,7 @@ MonoBehaviour:
       m_Action: Print Tile
       m_Flags: 0
     m_Flags: 0
+  CurrentTile: {fileID: 0}
   TimerMax: 0.2
 --- !u!212 &774206314
 SpriteRenderer:
@@ -2130,6 +2131,8 @@ MonoBehaviour:
   playerMovement: {fileID: 774206312}
   startingTile: {fileID: 11400000, guid: 6c1cb1724b225b04790374799cb81c69, type: 2}
   endingTile: {fileID: 11400000, guid: be908251886902d49bddbf1dcb74544d, type: 2}
+  startingTileObj: {fileID: 0}
+  endingTileObj: {fileID: 0}
 --- !u!4 &2034565882
 Transform:
   m_ObjectHideFlags: 0
