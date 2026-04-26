@@ -166,12 +166,14 @@ public class HandManager : TileCollection
         bool played = x == 0;
         Debug.Log("Card played callback received with value: " + x);
         RemoveCard(selectedCard, played);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/TilePlace", Vector3.zero);
     }
 
     // set the selected card when a card is clicked
     public void OnCardClicked(CardDisplay card)
     {
         SelectCard(card);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/TileSelect", Vector3.zero);
     }
 
     // debug -------------
