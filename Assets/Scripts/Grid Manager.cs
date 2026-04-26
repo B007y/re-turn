@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] GameObject rotationAnchor;
     [SerializeField] InputAction MouseLeftAction;
     [SerializeField] bool waitingForTileChoose = false;
+    [SerializeField] Tile rotateTileData;
 
     [Header("Starting Setup")]
     [SerializeField] PlayerMovement playerMovement;
@@ -410,8 +412,9 @@ public class GridManager : MonoBehaviour
 
     #region Rotation
 
-    public void InitRotation()
+    public void InitRotation(Tile tile)
     {
+        rotateTileData = tile;
         MouseLeftAction.Enable();
         waitingForTileChoose = true;
     }
