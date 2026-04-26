@@ -631,8 +631,8 @@ GameObject:
   m_Component:
   - component: {fileID: 774206311}
   - component: {fileID: 774206314}
-  - component: {fileID: 774206313}
   - component: {fileID: 774206312}
+  - component: {fileID: 774206315}
   m_Layer: 0
   m_Name: Orpheus
   m_TagString: Untagged
@@ -746,18 +746,6 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   TimerMax: 0.2
---- !u!114 &774206313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774206310}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9986107534cd34e4e953581613df9f5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!212 &774206314
 SpriteRenderer:
   serializedVersion: 2
@@ -817,6 +805,36 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &774206315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774206310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: f16f4708611fe0e4eae27be3e46e917e, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &936855325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,7 +2372,7 @@ MonoBehaviour:
   handParent: {fileID: 259187659021645423}
   mainDeck: {fileID: 1567467025}
   discardPile: {fileID: 1906425421}
-  playerInput: {fileID: 0}
+  playerInput: {fileID: 774206315}
 --- !u!1 &1904170456208060004
 GameObject:
   m_ObjectHideFlags: 0

@@ -172,6 +172,8 @@ public class GridManager : MonoBehaviour
         return false;
     }
 
+    // See: GetTileByDirection
+    // This one iterates through all directions given and then returns an array
     public TileBase[] GetValidTilesByDirections(int[] directions, Vector2 startPosition)
     {
         TileBase[] tilesToReturn = { };
@@ -182,17 +184,21 @@ public class GridManager : MonoBehaviour
             {
                 case 1:
                     {
+                        if (startPosition.y == gridSize.y - 1) break;
                         if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
                         {
-                            tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y + 1]);
+                            if (tiles[(int)startPosition.x][(int)startPosition.y + 1].GetDirectionValid(3))
+                                tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y + 1]);
                         }
                         break;
                     }
                 case 2:
                     {
+                        if (startPosition.x == gridSize.x - 1) break;
                         if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
                         {
-                            tilesToReturn.Append(tiles[(int)startPosition.x + 1][(int)startPosition.y]);
+                            if (tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
+                                tilesToReturn.Append(tiles[(int)startPosition.x + 1][(int)startPosition.y]);
                         }
                         break;
                     }
@@ -201,7 +207,8 @@ public class GridManager : MonoBehaviour
                         if (startPosition.y == 0) break;
                         if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
                         {
-                            tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y - 1]);
+                            if (tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
+                                tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y - 1]);
                         }
                         break;
                     }
@@ -210,7 +217,8 @@ public class GridManager : MonoBehaviour
                         if (startPosition.x == 0) break;
                         if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
                         {
-                            tilesToReturn.Append(tiles[(int)startPosition.x - 1][(int)startPosition.y]);
+                            if (tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                                tilesToReturn.Append(tiles[(int)startPosition.x - 1][(int)startPosition.y]);
                         }
                         break;
                     }
@@ -223,10 +231,13 @@ public class GridManager : MonoBehaviour
 
     public TileBase GetTileByDirection(int direction, Vector2 startPosition)
     {
+        // Checks for a tile in the array depending on the direction. 
+        // If the tile is there and the position is within the array bounds then check if that tile has the connecting direction as valid
         switch (direction)
         {
             case 1:
                 {
+                    if (startPosition.y == gridSize.y - 1) break;
                     if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
                     {
                         if (tiles[(int)startPosition.x][(int)startPosition.y + 1].GetDirectionValid(3))
@@ -236,6 +247,7 @@ public class GridManager : MonoBehaviour
                 }
             case 2:
                 {
+                    if (startPosition.x == gridSize.x - 1) break;
                     if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
                     {
                         if (tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
