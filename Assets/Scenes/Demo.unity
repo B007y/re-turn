@@ -2181,6 +2181,70 @@ PrefabInstance:
       propertyPath: floatingHeight
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: UpAction.m_SingletonActionBindings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: DownAction.m_SingletonActionBindings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: LeftAction.m_SingletonActionBindings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: RightAction.m_SingletonActionBindings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: UpAction.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 65e633ee-84c9-4c82-802b-0de6f00e6c3f
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: DownAction.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 461c3959-ee27-40a8-93ce-41db1034d866
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: LeftAction.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 55b21463-9d44-42f7-af62-2a9617de8e36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: UpAction.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Keyboard>/upArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: RightAction.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 45dc633c-2d7c-4f14-92dc-0f174a5eaed0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: DownAction.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Keyboard>/downArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: LeftAction.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Keyboard>/leftArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: UpAction.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: RightAction.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Keyboard>/rightArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: DownAction.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Down
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: LeftAction.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931792946994096266, guid: ad451755ae070a842a96cab9753682b8, type: 3}
+      propertyPath: RightAction.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Right
+      objectReference: {fileID: 0}
     - target: {fileID: 8598063293381926122, guid: ad451755ae070a842a96cab9753682b8, type: 3}
       propertyPath: m_Name
       value: Orpheus
