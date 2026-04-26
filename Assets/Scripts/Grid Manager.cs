@@ -107,6 +107,8 @@ public class GridManager : MonoBehaviour
             }
         }
 
+        onRotationPlayedCallback?.Invoke(0);
+
         // Rotate the anchor point
         StartCoroutine(RotateTiles(tilesToRotate, center));
     }
