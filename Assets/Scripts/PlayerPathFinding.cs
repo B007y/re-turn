@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerPathFinding : MonoBehaviour
 {
@@ -60,6 +61,11 @@ public class PlayerPathFinding : MonoBehaviour
         {
             startingTileNode = new TileNode(StartingTile);
             Move(GetNewPath(StartingTile, playerTile));
+
+            if (transform.position == playerTile.transform.position)
+            {
+                SceneManager.LoadScene("LoseScene");
+            }
         }
     }
 
@@ -152,12 +158,12 @@ public class PlayerPathFinding : MonoBehaviour
 
     void Move(List<TileNode> path)
     {
-        string dMSG = "Tile Path : " + path.Count + "\n";
-        foreach (TileNode node in path)
-        {
-            dMSG += node.tile.transform.position + "\n";
-        }
-        Debug.Log(dMSG);
+        //string dMSG = "Tile Path : " + path.Count + "\n";
+        //foreach (TileNode node in path)
+        //{
+        //    dMSG += node.tile.transform.position + "\n";
+        //}
+        //Debug.Log(dMSG);
 
         int tempMoves = MovesPerTurn;
         foreach (TileNode move in path)
