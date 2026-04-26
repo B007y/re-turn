@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -78,8 +79,7 @@ public class GridManager : MonoBehaviour
         {
             // place the tile on the grid
             tiles[(int)position.x][(int)position.y] = tile;
-            tile.transform.SetParent(tileParent);
-
+            Debug.Log(position);
             // save position in tile object
             // tile.setCellPosition(position);
         }
@@ -135,5 +135,112 @@ public class GridManager : MonoBehaviour
         return false;
     }
 
+    public TileBase[] GetValidTilesByDirections(int[] directions, Vector2 startPosition)
+    {
+        TileBase[] tilesToReturn = { };
 
+        foreach (int direction in directions)
+        {
+            switch(direction)
+            {
+                case 1:
+                    {
+                        if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null) 
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y + 1]);
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x + 1][(int)startPosition.y]);
+                        }
+                        break;
+                    }
+                case 3: 
+                    {
+                        if (startPosition.y == 0) break;
+                        if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y - 1]);
+                        }
+                        break; 
+                    }
+                case 4:
+                    {
+                        if (startPosition.x == 0) break;
+                        if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x - 1][(int)startPosition.y]);
+                        }
+                        break;
+                    }
+
+            }
+        }
+
+        return tilesToReturn;
+    }
+
+    public TileBase GetTileByDirection(int direction, Vector2 startPosition)
+    {
+        switch (direction)
+        {
+            case 1:
+                {
+                    if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
+                    {
+                        if (tiles[(int)startPosition.x][(int)startPosition.y + 1].GetDirectionValid(3))
+                            return tiles[(int)startPosition.x][(int)startPosition.y + 1];
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
+                    {
+                        if(tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
+                            return tiles[(int)startPosition.x + 1][(int)startPosition.y];
+                    }
+                    break;
+                }
+            case 3:
+                {
+                    if (startPosition.y == 0) break;
+                    if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
+                    {
+                        if(tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
+                            return tiles[(int)startPosition.x][(int)startPosition.y - 1];
+                    }
+                    break;
+                }
+            case 4:
+                {
+                    if (startPosition.x == 0) break;
+                    if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
+                    {
+                        if(tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                            return tiles[(int)startPosition.x - 1][(int)startPosition.y];
+                    }
+                    break;
+                }
+        }
+        return null;
+    }
+
+    public void PrintGrid()
+    {
+        string gridmsg = "\n";
+        for (int i = 0; i < gridSize.y; i++)
+        {
+            for (int j = 0; j < gridSize.x; j++)
+            {
+                gridmsg += (tiles[j][i] == null ? "0" : "1");
+            }
+            gridmsg += "\n";
+        }
+        Debug.Log(gridmsg);
+    }
 }
