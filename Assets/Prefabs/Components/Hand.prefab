@@ -90,7 +90,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a450c92b79322b4fa06031daf6278b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandManager
+<<<<<<< HEAD
+=======
+  MaxCard: -1
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
   selectedCard: {fileID: 0}
   handCards: []
   cardPrefab: {fileID: 2677975466785457495, guid: 5a4100b2c99d0114d8fb83c479c2783f, type: 3}
   handParent: {fileID: 259187657533626311}
+<<<<<<< HEAD
+=======
+  discardPile: {fileID: 0}
+  playerInput: {fileID: 0}
+  tileSO: {fileID: 0}
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd

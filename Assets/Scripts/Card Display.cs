@@ -4,7 +4,11 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
+<<<<<<< HEAD
     public CardTemp card;
+=======
+    public Tile tileData;
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI nameText;
     System.Action<CardDisplay> onClickCallback;
@@ -14,6 +18,7 @@ public class CardDisplay : MonoBehaviour
     float hoverPixel = 128f;
     float hoverScale = 1.5f;
 
+<<<<<<< HEAD
     public void SetCard(CardTemp newCard, System.Action<CardDisplay> onClick = null)
     {
         card = newCard;
@@ -21,6 +26,15 @@ public class CardDisplay : MonoBehaviour
 
         icon.sprite = card.icon;
         nameText.text = card.cardName;
+=======
+    public void SetCard(Tile newCard, System.Action<CardDisplay> onClick = null)
+    {
+        tileData = newCard;
+        onClickCallback = onClick;
+
+        icon.sprite = tileData.sprite;
+        nameText.text = tileData.TileName;
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
     }
 
     public void HoverCard()

@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class TileBase : MonoBehaviour
 {
-
+    public string tileName;
+    public Sprite tileSprite;
     Vector2 cellPosition;
     [SerializeField] int[] openDirections = new int[4];
 
@@ -20,7 +21,11 @@ public class TileBase : MonoBehaviour
     GridManager gridManagerRef;
 
     bool locked = false;
+<<<<<<< HEAD
 
+=======
+    System.Action<int> onCardPlayedCallback;
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,7 +37,7 @@ public class TileBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (selected) 
+        if (selected)
         {
             Vector3 mousePositionGet = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 10);
 
@@ -40,6 +45,7 @@ public class TileBase : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     void OnMouseDown()
     {
         if (!locked)
@@ -71,10 +77,79 @@ public class TileBase : MonoBehaviour
 
     }
 
+=======
+    public void Init(Tile tileData, System.Action<int> OnCardPlayed = null)
+    {
+        this.tileName = tileData.TileName;
+        this.tileSprite = tileData.sprite;
+        this.openDirections = tileData.openDirections;
+        this.onCardPlayedCallback = OnCardPlayed;
+
+        SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = tileSprite;
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if (!locked)
+        {
+            if (selected)
+            {
+                PlaceTile();
+            }
+            else
+            {
+                PickTileFromGrid();
+            }
+
+        }
+
+
+    }
+
+    public void SelectTile()
+    {
+        selected = true;
+    }
+
+    public void DeselectTile()
+    {
+        selected = false;
+    }
+
+    public void PickTileFromGrid()
+    {
+        selected = !selected;
+        if (cellPosition != null)
+        {
+            gridManagerRef.RemoveTileFromGrid(cellPosition);
+        }
+    }
+
+    public void PlaceTile()
+    {
+        Vector2 roundVector2 = new Vector2(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
+
+        if (gridManagerRef.CheckPositionAvailability(roundVector2) == true)
+        {
+            this.transform.SetPositionAndRotation(roundVector2, transform.rotation);
+            gridManagerRef.PutTileOnGrid(this, roundVector2);
+            cellPosition = roundVector2;
+            selected = !selected;
+
+            onCardPlayedCallback?.Invoke(0);
+        }
+    }
+
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
     public void RotateTile(int amount, bool right)
     {
         switch (right)
         {
+<<<<<<< HEAD
             case true: foreach(int direction in openDirections) 
                 {
                     if (openDirections[direction] != 0) 
@@ -90,10 +165,14 @@ public class TileBase : MonoBehaviour
                 }
                 break;
             case false:
+=======
+            case true:
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
                 foreach (int direction in openDirections)
                 {
                     if (openDirections[direction] != 0)
                     {
+<<<<<<< HEAD
                         openDirections[direction] -= amount;
 
                         if (openDirections[direction] > 4)
@@ -125,5 +204,37 @@ public class TileBase : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+=======
+                        openDirections[direction] += amount;
+
+                        if (openDirections[direction] < 4)
+                        {
+                            openDirections[direction] -= 4;
+                        }
+                    }
+                    ;
+
+                }
+                break;
+            case false:
+                foreach (int direction in openDirections)
+                {
+                    if (openDirections[direction] != 0)
+                    {
+                        openDirections[direction] -= amount;
+
+                        if (openDirections[direction] > 4)
+                        {
+                            openDirections[direction] += 4;
+                        }
+                    }
+                    ;
+
+                }
+                break;
+        }
+    }
+
+>>>>>>> 80197db25b0734cba68ba23129fa9892e8de7dfd
 }
 
