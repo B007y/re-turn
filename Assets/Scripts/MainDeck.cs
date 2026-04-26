@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,6 +11,7 @@ public struct TileEntry
 public class MainDeck : TileCollection
 {
     [SerializeField] TileEntry[] levelTiles;
+    [SerializeField] HandManager handManager;
 
     void Start()
     {
@@ -30,20 +32,32 @@ public class MainDeck : TileCollection
                     Debug.LogWarning($"Prefab {entry.tile.name} has no Tile component.");
             }
         }
+
+        // randomize the deck
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            int j = Random.Range(i, tiles.Count);
+            Tile temp = tiles[i];
+            tiles[i] = tiles[j];
+            tiles[j] = temp;
+        }
     }
 
-    public void DealAllTo(TileCollection hand)
+    public void DealAllTo(TileCollection hand = null)
     {
+        if (hand == null) hand = handManager;
+        
         Tile[] snapshot = new Tile[tiles.Count];
         tiles.CopyTo(snapshot);
         foreach (Tile tile in snapshot)
             TransferTo(tile, hand);
     }
 
-    public bool DealOneTo(TileCollection hand)
+    public void DealOneTo(TileCollection hand = null)
     {
-        if (tiles.Count == 0) return false;
+        if (hand == null) hand = handManager;
+        
+        if (tiles.Count == 0) return;
         TransferTo(tiles[0], hand);
-        return true;
     }
 }

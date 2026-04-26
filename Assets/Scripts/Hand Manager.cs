@@ -17,9 +17,6 @@ public class HandManager : TileCollection
     [SerializeField] PlayerInput playerInput;
     private InputAction rightClickAction;
 
-    [Header("debug")]
-    [SerializeField] Tile tileSO;
-
     void Start()
     {
         // Example cards for testing
@@ -49,7 +46,6 @@ public class HandManager : TileCollection
             cardDisplay.SetCard(tile, OnCardClicked);
 
             handCards.Add(cardDisplay);
-            Add(tile);
         }
         else
         {
