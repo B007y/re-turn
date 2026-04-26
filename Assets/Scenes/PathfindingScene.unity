@@ -1903,6 +1903,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9986107534cd34e4e953581613df9f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  StartingTile: {fileID: 0}
+  StartingPosition: {x: 0, y: 0}
+  startingIgnoredDirection: 0
 --- !u!114 &1731704296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2060,8 +2063,12 @@ MonoBehaviour:
   gridSize: {x: 5, y: 5}
   gridGap: {x: 0, y: 0}
   tileSize: {x: 1, y: 1}
+  emptyTilePrefabs: {fileID: 0}
   tilePrefabs: {fileID: 8062100705751506593, guid: 9932df07be4c09446874753519e4fe24, type: 3}
   tileParent: {fileID: 0}
+  playerMovement: {fileID: 0}
+  startingTile: {fileID: 0}
+  endingTile: {fileID: 0}
 --- !u!4 &1772924474
 Transform:
   m_ObjectHideFlags: 0
@@ -2203,7 +2210,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1779498185
@@ -2246,8 +2253,12 @@ MonoBehaviour:
   gridSize: {x: 0, y: 0}
   gridGap: {x: 0, y: 0}
   tileSize: {x: 0, y: 0}
+  emptyTilePrefabs: {fileID: 0}
   tilePrefabs: {fileID: 6789988194240181595, guid: 0a34836542683df4ea4ef55d5e69db8d, type: 3}
   tileParent: {fileID: 1556377355}
+  playerMovement: {fileID: 0}
+  startingTile: {fileID: 0}
+  endingTile: {fileID: 0}
 --- !u!4 &1852190145
 Transform:
   m_ObjectHideFlags: 0
