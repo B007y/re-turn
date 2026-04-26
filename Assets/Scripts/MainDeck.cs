@@ -24,7 +24,7 @@ public class MainDeck : TileCollection
     }
     public void FillHand()
     {
-        handManager.WashHandToDraw();
+        //handManager.WashHandToDraw();
 
         for (int i = 0; i < 5; i++)
         {
