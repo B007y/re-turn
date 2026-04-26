@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] InputAction UpAction;
     [SerializeField] InputAction DownAction;
 
-    [SerializeField] TileBase StartingTile;
+    public TileBase StartingTile;
     [SerializeField] InputAction PrintTileAction;
     GridManager gridManager;
 
@@ -73,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("Starting Movement");
 
+        Debug.Log("Direction: " + Direction);
+        Debug.Log("Current Tile: " + CurrentTile.transform.position);
         TileBase tile = gridManager.GetTileByDirection(Direction, CurrentTile.transform.position);
         // if no tile is found, do nothing
         if (tile == null) {

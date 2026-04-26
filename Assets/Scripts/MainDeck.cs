@@ -16,6 +16,11 @@ public class MainDeck : TileCollection
     void Start()
     {
         LoadFromLevelData(levelTiles);
+
+        for (int i = 0; i < 5; i++)
+        {
+            this.DealOneTo(handManager);
+        }
     }
 
     public void LoadFromLevelData(TileEntry[] entries)
@@ -46,7 +51,7 @@ public class MainDeck : TileCollection
     public void DealAllTo(TileCollection hand = null)
     {
         if (hand == null) hand = handManager;
-        
+
         Tile[] snapshot = new Tile[tiles.Count];
         tiles.CopyTo(snapshot);
         foreach (Tile tile in snapshot)
@@ -56,7 +61,7 @@ public class MainDeck : TileCollection
     public void DealOneTo(TileCollection hand = null)
     {
         if (hand == null) hand = handManager;
-        
+
         if (tiles.Count == 0) return;
         TransferTo(tiles[0], hand);
     }
