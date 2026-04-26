@@ -20,7 +20,7 @@ public class CardDisplay : MonoBehaviour
         onClickCallback = onClick;
 
         icon.sprite = tileData.sprite;
-        nameText.text = tileData.TileName;
+        // nameText.text = tileData.TileName;
     }
 
     public void HoverCard()
