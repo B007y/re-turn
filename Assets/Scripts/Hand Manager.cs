@@ -139,6 +139,10 @@ public class HandManager : TileCollection
         }
         else
         {
+            if (selectedTileObj.tileData.isRotationCard)
+            {
+                TilesObjPool.Instance.ReturnTile(selectedTileObj);
+            }
             selectedTileObj = null;
         }
     }
@@ -160,6 +164,7 @@ public class HandManager : TileCollection
     {
         // assume all cards are tile
         bool played = x == 0;
+        Debug.Log("Card played callback received with value: " + x);
         RemoveCard(selectedCard, played);
         FMODUnity.RuntimeManager.PlayOneShot("event:/TilePlace", Vector3.zero);
     }
