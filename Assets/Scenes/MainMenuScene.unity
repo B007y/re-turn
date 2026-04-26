@@ -678,6 +678,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1265432618}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1177292447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,6 +728,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177292444}
   m_CullTransparentMesh: 1
+--- !u!1001 &1265432616
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707169070648820090, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4476008751770363731, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+      propertyPath: m_Name
+      value: MainMenuMusic
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+--- !u!114 &1265432617 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1372359391520006971, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+  m_PrefabInstance: {fileID: 1265432616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+--- !u!114 &1265432618 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7273360539494893394, guid: 454b9f94f4ef22b4d9c42a45fa97a3d4, type: 3}
+  m_PrefabInstance: {fileID: 1265432616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
 --- !u!1 &1305718193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,6 +1180,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1265432617}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1745877601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1135,3 +1238,4 @@ SceneRoots:
   - {fileID: 838034281}
   - {fileID: 680127965}
   - {fileID: 1638727326}
+  - {fileID: 1265432616}
