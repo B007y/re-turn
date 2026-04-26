@@ -237,7 +237,16 @@ public class GridManager : MonoBehaviour
         {
             case 1:
                 {
-                    if (startPosition.y == gridSize.y - 1) break;
+                    // if at the edge of the screen, checks if there is a tile on the opposite end to wrap to.
+                    if (startPosition.y == gridSize.y - 1)
+                    {
+                        if (tiles[(int)startPosition.x][0] != null)
+                        {
+                            if(tiles[(int)startPosition.x][0].GetDirectionValid(3))
+                                return tiles[(int)startPosition.x][0];
+                        }
+                        break; 
+                    }
                     if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
                     {
                         if (tiles[(int)startPosition.x][(int)startPosition.y + 1].GetDirectionValid(3))
@@ -247,7 +256,15 @@ public class GridManager : MonoBehaviour
                 }
             case 2:
                 {
-                    if (startPosition.x == gridSize.x - 1) break;
+                    if (startPosition.x == gridSize.x - 1)
+                    {
+                        if (tiles[0][(int)startPosition.y] != null)
+                        {
+                            if (tiles[0][(int)startPosition.y].GetDirectionValid(4))
+                                return tiles[0][(int)startPosition.y];
+                        }
+                        break;
+                    }
                     if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
                     {
                         if (tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
@@ -257,7 +274,15 @@ public class GridManager : MonoBehaviour
                 }
             case 3:
                 {
-                    if (startPosition.y == 0) break;
+                    if (startPosition.y == 0)
+                    {
+                        if (tiles[(int)startPosition.x][gridSize.y - 1] != null)
+                        {
+                            if (tiles[(int)startPosition.x][gridSize.y - 1].GetDirectionValid(1))
+                                return tiles[(int)startPosition.x][gridSize.y - 1];
+                        }
+                        break;
+                    }
                     if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
                     {
                         if (tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
@@ -267,7 +292,15 @@ public class GridManager : MonoBehaviour
                 }
             case 4:
                 {
-                    if (startPosition.x == 0) break;
+                    if (startPosition.x == 0)
+                    {
+                        if (tiles[gridSize.x - 1][(int)startPosition.y] != null)
+                        {
+                            if (tiles[gridSize.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                                return tiles[gridSize.x - 1][(int)startPosition.y];
+                        }
+                        break;
+                    }
                     if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
                     {
                         if (tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
