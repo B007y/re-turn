@@ -127,7 +127,6 @@ public class PlayerMovement : MonoBehaviour
         //            break;
         //        }
         //}
-        CurrentTile = tile;
 
         FMODUnity.RuntimeManager.PlayOneShot("event:/Footsteps", Vector3.zero);
         if (moveCoroutine == null)
@@ -137,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
             else
                 moveCoroutine = StartCoroutine(MovePlayerCoroutine(tile.transform.position));
         }
+        CurrentTile = tile;
     }
 
     bool CheckWalkingOutsideBorder(int Direction)
@@ -145,8 +145,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (CurrentTile.cellPosition.x == 0 && Direction == 4) return true;
         if (CurrentTile.cellPosition.x == gridManager.gridSize.x - 1 && Direction == 2) return true;
-        if (CurrentTile.cellPosition.y == 0 && Direction == 1) return true;
-        if (CurrentTile.cellPosition.y == gridManager.gridSize.y - 1 && Direction == 3) return true;
+        if (CurrentTile.cellPosition.y == 0 && Direction == 3) return true;
+        if (CurrentTile.cellPosition.y == gridManager.gridSize.y - 1 && Direction == 1) return true;
         return false;
     }
 
@@ -198,16 +198,16 @@ public class PlayerMovement : MonoBehaviour
         switch (Direction)
         {
             case 1:
-                midTarget.y -= 1f;
+                startPosition.y -= 1f;
                 break;
             case 2:
-                midTarget.x -= 1f;
+                startPosition.x -= 1f;
                 break;
             case 3:
-                midTarget.y += 1f;
+                startPosition.y += 1f;
                 break;
             case 4:
-                midTarget.x += 1f;
+                startPosition.x += 1f;
                 break;
         }
         elapsedTime = 0f;
