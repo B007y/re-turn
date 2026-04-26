@@ -87,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if (timer > 0) return;
         if (moveCoroutine != null) return;
 
+        
         timer = TimerMax;
 
         Debug.Log("Starting Movement");
