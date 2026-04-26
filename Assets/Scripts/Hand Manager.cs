@@ -31,6 +31,7 @@ public class HandManager : TileCollection
         {
             rightClickAction.performed += ctx => DeselectCard();
             rightClickAction.Enable();
+            Debug.Log("Right click has been enabled");
         }
 
     }
@@ -127,8 +128,19 @@ public class HandManager : TileCollection
         // {
         //     TilesObjPool.Instance.ReturnTile(selectedTileObj);
         // }
+
         selectedTileObj?.DeselectTile();
-        selectedTileObj = null;
+        // Destroy the tile if it wasn't played on the board
+        if (!played && selectedTileObj != null) 
+        {
+            Destroy(selectedTileObj.gameObject);
+            selectedTileObj = null;
+            Debug.Log("Tile has been destroyed");
+        }
+        else
+        {
+            selectedTileObj = null;
+        }
     }
 
     // play the selected card and remove it from the hand
@@ -155,6 +167,14 @@ public class HandManager : TileCollection
     public void OnCardClicked(CardDisplay card)
     {
         SelectCard(card);
+    }
+
+    // debug -------------
+    [SerializeField] Tile debugCard;
+    [ContextMenu("Add A Card")]
+    void AddRandomCard()
+    {
+        Add(debugCard);
     }
 
 }
