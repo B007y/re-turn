@@ -112,6 +112,10 @@ public class GridManager : MonoBehaviour
                     {
                         playerMovement.transform.SetParent(rotationAnchor.transform);
                     }                   
+                    if(eurydice.CurrentTile == tileToRotate)
+                    {
+                        eurydice.transform.SetParent(rotationAnchor.transform);
+                    }
                 }
             }
         }
@@ -136,6 +140,7 @@ public class GridManager : MonoBehaviour
 
             // fix player rotation
             playerMovement.transform.eulerAngles = Vector3.zero;
+            eurydice.transform.eulerAngles = Vector3.zero;
             startingTileObj.transform.eulerAngles = Vector3.zero;
             endingTileObj.transform.eulerAngles = Vector3.zero;
 
@@ -150,6 +155,7 @@ public class GridManager : MonoBehaviour
 
         // set player parent back to tile parent after rotation
         playerMovement.transform.SetParent(tileParent);
+        eurydice.transform.SetParent(tileParent);
 
         int blockSize = 1 + 2 * rotationRadius;
         TileBase[,] temp = new TileBase[blockSize, blockSize];

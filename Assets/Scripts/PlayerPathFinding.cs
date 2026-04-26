@@ -64,12 +64,11 @@ public class PlayerPathFinding : MonoBehaviour
     }
 
     List<TileNode> GetNewPath(TileBase startTile, TileBase endTile)
-    {
-        CreatePathFromTiles(startTile, endTile);
-        return BuildPath(endTile);
+    {   
+        return BuildPath(CreatePathFromTiles(startTile, endTile));
     }
 
-    void CreatePathFromTiles(TileBase pathStartTile, TileBase pathEndTile)
+    TileNode CreatePathFromTiles(TileBase pathStartTile, TileBase pathEndTile)
     {
         //startingTileNode.tile = pathStartTile;
 
@@ -95,6 +94,8 @@ public class PlayerPathFinding : MonoBehaviour
                 active = false;
             }
         }
+        Debug.Log("End of search node neighbor" + currentSearchNode.connectedTo.tile.transform.position);
+        return currentSearchNode;
     }
 
     void ExploreNeighbors(TileNode targetTile)
@@ -126,11 +127,11 @@ public class PlayerPathFinding : MonoBehaviour
         }
     }
 
-    List<TileNode> BuildPath(TileBase desinationNode)
+    List<TileNode> BuildPath(TileNode desinationNode)
     {
         List<TileNode> path = new List<TileNode>();
         
-        TileNode currentNode = new TileNode(desinationNode);
+        TileNode currentNode = desinationNode;
 
         path.Add(currentNode);
         currentNode.isPath = true;
@@ -139,6 +140,8 @@ public class PlayerPathFinding : MonoBehaviour
         {
             currentNode = currentNode.connectedTo;
             currentNode.isPath = true;
+
+            path.Add(currentNode);
         }
 
         path.Reverse();
@@ -149,14 +152,23 @@ public class PlayerPathFinding : MonoBehaviour
 
     void Move(List<TileNode> path)
     {
+        string dMSG = "Tile Path : " + path.Count + "\n";
+        foreach (TileNode node in path)
+        {
+            dMSG += node.tile.transform.position + "\n";
+        }
+        Debug.Log(dMSG);
+
+        int tempMoves = MovesPerTurn;
         foreach (TileNode move in path)
         {
-            if(MovesPerTurn-- <= 0)
+            if(tempMoves <= 0)
             {
                 return;
             }
             transform.position = move.tile.transform.position;
             CurrentTile = move.tile;
+            tempMoves--;
         }
     }
 
