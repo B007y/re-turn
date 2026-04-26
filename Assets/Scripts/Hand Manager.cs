@@ -75,6 +75,7 @@ public class HandManager : TileCollection
     // return all cards in hand to the main deck and clear the hand
     public void WashHandToDraw()
     {
+        DeselectCard();
         foreach (CardDisplay card in handCards)
         {
             TransferTo(card.tileData, mainDeck);

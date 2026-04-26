@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] InputAction UpAction;
     [SerializeField] InputAction DownAction;
 
-    [SerializeField] TileBase StartingTile;
+    public TileBase StartingTile;
     [SerializeField] InputAction PrintTileAction;
     GridManager gridManager;
 
