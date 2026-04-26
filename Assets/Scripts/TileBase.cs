@@ -10,6 +10,7 @@ public class TileBase : MonoBehaviour
 
     public Vector2Int cellPosition;
     [SerializeField] int[] openDirections = new int[4];
+    [SerializeField] GameObject border;
 
     //north = 1
     //east = 2
@@ -41,7 +42,7 @@ public class TileBase : MonoBehaviour
         }
     }
 
-    public void Init(Tile tileData, System.Action<int> OnCardPlayed = null)
+    public void Init(Tile tileData, System.Action<int> OnCardPlayed = null, bool showBorder = true)
     {
         this.tileData = tileData;
         this.tileSprite = tileData.sprite;
@@ -52,6 +53,11 @@ public class TileBase : MonoBehaviour
         if (spriteRenderer != null)
         {
             spriteRenderer.sprite = tileSprite;
+        }
+        
+        if (border != null)
+        {
+            border.SetActive(showBorder);
         }
     }
 

@@ -97,6 +97,7 @@ MonoBehaviour:
   tileSprite: {fileID: 0}
   cellPosition: {x: 0, y: 0}
   openDirections: 01000000020000000300000004000000
+  border: {fileID: 7714559755626380481}
 --- !u!212 &2902049168387475549
 SpriteRenderer:
   serializedVersion: 2
@@ -167,7 +168,7 @@ GameObject:
   - component: {fileID: 4174417550542905557}
   - component: {fileID: 4297986775057085426}
   m_Layer: 0
-  m_Name: Square
+  m_Name: border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
