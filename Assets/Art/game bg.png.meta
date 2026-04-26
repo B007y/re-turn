@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 01b2e7aee4c8efe428913f6f007b3654
+guid: 36d30966ef1765941b41988ff5248c0e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2014899499222472975
-    second: text_logo_0
+      213: 6406392069486493779
+    second: game bg_0
   - first:
-      213: 5713187389103871524
-    second: text_logo_1
+      213: -5264287709424491125
+    second: game bg_1
   - first:
-      213: -8540934897761583004
-    second: text_logo_2
+      213: -6885052664103862377
+    second: game bg_2
+  - first:
+      213: -2143748385363082788
+    second: game bg_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,12 +55,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 2048
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,7 +106,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WindowsStoreApps
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -119,67 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: text_logo_0
+      name: game bg_0
       rect:
         serializedVersion: 2
-        x: 2551
-        y: 1311
-        width: 52
-        height: 157
+        x: 10
+        y: 2
+        width: 1486
+        height: 825
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f66bb2b493a904e0800000000000000
-      internalID: -2014899499222472975
+      spriteID: 3504f9905a318e850800000000000000
+      internalID: 6406392069486493779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: text_logo_1
+      name: game bg_1
       rect:
         serializedVersion: 2
-        x: 1368
-        y: 982
-        width: 158
-        height: 305
+        x: 411
+        y: 718
+        width: 13
+        height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 42617ce19a1594f40800000000000000
-      internalID: 5713187389103871524
+      spriteID: b856c4c383e71f6b0800000000000000
+      internalID: -5264287709424491125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: text_logo_2
+      name: game bg_2
       rect:
         serializedVersion: 2
-        x: 1559
-        y: 979
-        width: 1093
-        height: 317
+        x: 1078
+        y: 4
+        width: 406
+        height: 822
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4600f2956f0887980800000000000000
-      internalID: -8540934897761583004
+      spriteID: 79f7b30a4116370a0800000000000000
+      internalID: -6885052664103862377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game bg_3
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 561
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd1cd9a9330ef32e0800000000000000
+      internalID: -2143748385363082788
       vertices: []
       indices: 
       edges: []
@@ -188,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 0a3170d338b9c0e4595e3f0d4072059c
     internalID: 0
     vertices: []
     indices: 
@@ -198,9 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      text_logo_0: -2014899499222472975
-      text_logo_1: 5713187389103871524
-      text_logo_2: -8540934897761583004
+      game bg_0: 6406392069486493779
+      game bg_1: -5264287709424491125
+      game bg_2: -6885052664103862377
+      game bg_3: -2143748385363082788
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

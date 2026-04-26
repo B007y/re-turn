@@ -41,6 +41,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
+    [SerializeField] TileBase startingTileObj;
+    [SerializeField] TileBase endingTileObj;
 
     TileBase spawnedEndingTile;
 
@@ -103,6 +105,12 @@ public class GridManager : MonoBehaviour
                     tileToRotate.RotateTile(1, rotateTileData.rotateClockWise);
                     tilesToRotate.Add(tileToRotate);
                     tileToRotate.transform.SetParent(rotationAnchor.transform);
+
+                    // rotate player if they're on the tile being rotated
+                    if (playerMovement.CurrentTile == tileToRotate)
+                    {
+                        playerMovement.transform.SetParent(rotationAnchor.transform);
+                    }
                 }
             }
         }
@@ -124,6 +132,12 @@ public class GridManager : MonoBehaviour
         {
             rotationAnchor.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsedTime / rotationTime);
             elapsedTime += Time.deltaTime;
+
+            // fix player rotation
+            playerMovement.transform.eulerAngles = Vector3.zero;
+            startingTileObj.transform.eulerAngles = Vector3.zero;
+            endingTileObj.transform.eulerAngles = Vector3.zero;
+
             yield return null;
         }
 
@@ -132,6 +146,9 @@ public class GridManager : MonoBehaviour
         // Detach tiles from the anchor after rotation
         foreach (TileBase tile in tilesToRotate)
             tile.transform.SetParent(tileParent);
+
+        // set player parent back to tile parent after rotation
+        playerMovement.transform.SetParent(tileParent);
 
         int blockSize = 1 + 2 * rotationRadius;
         TileBase[,] temp = new TileBase[blockSize, blockSize];
@@ -159,7 +176,7 @@ public class GridManager : MonoBehaviour
                 tiles[offsetY][offsetX] = temp[y, x];
                 if (temp[y, x] != null)
                 {
-                    temp[y, x].cellPosition = new Vector2Int(offsetY, offsetX);
+                    temp[y, x].cellPosition = new Vector2Int(offsetX, offsetY);
                 }
             }
         }
@@ -219,7 +236,8 @@ public class GridManager : MonoBehaviour
     {
         GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
         TileBase tile = newObj.GetComponent<TileBase>();
-        tile.Init(startingTile);
+        tile.Init(startingTile, showBorder: false);
+        startingTileObj = tile;
 
         Vector2 roundVector2 = new Vector2(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
         PutTileOnGrid(tile, roundVector2);
@@ -231,7 +249,8 @@ public class GridManager : MonoBehaviour
     {
         GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
         TileBase tile = newObj.GetComponent<TileBase>();
-        tile.Init(endingTile);
+        tile.Init(endingTile, showBorder: false);
+        endingTileObj = tile;
 
         Vector2 roundVector2 = new Vector2(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
         while (!CheckPositionAvailability(roundVector2))
@@ -384,7 +403,7 @@ public class GridManager : MonoBehaviour
         return tilesToReturn;
     }
 
-    public TileBase GetTileByDirection(int direction, Vector2 startPosition)
+    public TileBase GetTileByDirection(int direction, Vector2Int startPosition)
     {
         // Checks for a tile in the array depending on the direction. 
         // If the tile is there and the position is within the array bounds then check if that tile has the connecting direction as valid
@@ -395,7 +414,7 @@ public class GridManager : MonoBehaviour
                     // if at the edge of the screen, checks if there is a tile on the opposite end to wrap to.
                     if (startPosition.y == gridSize.y - 1)
                     {
-                        TileBase tile = tiles[0][(int)startPosition.x];
+                        TileBase tile = tiles[0][startPosition.x];
                         if (tile != null)
                         {
                             if (tile.GetDirectionValid(3))
@@ -407,7 +426,7 @@ public class GridManager : MonoBehaviour
                     }
                     else
                     {
-                        TileBase tile = tiles[(int)startPosition.y + 1][(int)startPosition.x];
+                        TileBase tile = tiles[startPosition.y + 1][startPosition.x];
                         if (tile != null && tile.GetDirectionValid(3))
                         {
                             CheckPlayerReachedEnd(tile);
@@ -420,7 +439,7 @@ public class GridManager : MonoBehaviour
                 {
                     if (startPosition.x == gridSize.x - 1)
                     {
-                        TileBase tile = tiles[(int)startPosition.y][0];
+                        TileBase tile = tiles[startPosition.y][0];
                         if (tile != null)
                         {
                             if (tile.GetDirectionValid(4))
@@ -432,7 +451,7 @@ public class GridManager : MonoBehaviour
                     }
                     else
                     {
-                        TileBase tile = tiles[(int)startPosition.y][(int)startPosition.x + 1];
+                        TileBase tile = tiles[startPosition.y][startPosition.x + 1];
                         if (tile != null && tile.GetDirectionValid(4))
                         {
                             CheckPlayerReachedEnd(tile);
@@ -445,7 +464,7 @@ public class GridManager : MonoBehaviour
                 {
                     if (startPosition.y == 0)
                     {
-                        TileBase tile = tiles[gridSize.y - 1][(int)startPosition.x];
+                        TileBase tile = tiles[gridSize.y - 1][startPosition.x];
                         if (tile != null)
                         {
                             if (tile.GetDirectionValid(1))
@@ -458,7 +477,7 @@ public class GridManager : MonoBehaviour
                     }
                     else
                     {
-                        TileBase tile = tiles[(int)startPosition.y - 1][(int)startPosition.x];
+                        TileBase tile = tiles[startPosition.y - 1][startPosition.x];
                         if (tile != null && tile.GetDirectionValid(1))
                         {
                             CheckPlayerReachedEnd(tile);
@@ -471,7 +490,7 @@ public class GridManager : MonoBehaviour
                 {
                     if (startPosition.x == 0)
                     {
-                        TileBase tile = tiles[(int)startPosition.y][gridSize.x - 1];
+                        TileBase tile = tiles[startPosition.y][gridSize.x - 1];
                         if (tile != null)
                         {
                             if (tile.GetDirectionValid(2))
@@ -483,7 +502,7 @@ public class GridManager : MonoBehaviour
                     }
                     else
                     {
-                        TileBase tile = tiles[(int)startPosition.y][(int)startPosition.x - 1];
+                        TileBase tile = tiles[startPosition.y][startPosition.x - 1];
                         if (tile != null && tile.GetDirectionValid(2))
                         {
                             CheckPlayerReachedEnd(tile);

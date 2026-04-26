@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] InputAction PrintTileAction;
     GridManager gridManager;
 
-    TileBase CurrentTile;
+    public TileBase CurrentTile;
 
     [SerializeField] float TimerMax = 0.2f;
     float timer = 0;
@@ -72,10 +72,7 @@ public class PlayerMovement : MonoBehaviour
         timer = TimerMax;
 
         Debug.Log("Starting Movement");
-
-        Debug.Log("Direction: " + Direction);
-        Debug.Log("Current Tile: " + CurrentTile.transform.position);
-        TileBase tile = gridManager.GetTileByDirection(Direction, CurrentTile.transform.position);
+        TileBase tile = gridManager.GetTileByDirection(Direction, CurrentTile.cellPosition);
         // if no tile is found, do nothing
         if (tile == null) {
             Debug.Log("Tile not found");
@@ -112,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
         //}
         CurrentTile = tile;
         transform.position = tile.transform.position;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Footsteps", Vector3.zero);
     }
 
     public void SetPlayer()
