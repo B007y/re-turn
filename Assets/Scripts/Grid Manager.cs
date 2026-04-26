@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GridManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
+
+    TileBase spawnedEndingTile;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -89,6 +92,7 @@ public class GridManager : MonoBehaviour
             roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
         }
         PutTileOnGrid(tile, roundVector2);
+        spawnedEndingTile = tile;
     }
 
     // delete all the tile objects on the grid and clear the 2d array
@@ -242,15 +246,21 @@ public class GridManager : MonoBehaviour
                     {
                         if (tiles[(int)startPosition.x][0] != null)
                         {
-                            if(tiles[(int)startPosition.x][0].GetDirectionValid(3))
+                            if (tiles[(int)startPosition.x][0].GetDirectionValid(3))
+                            {
+                                CheckPlayerReachedEnd(tiles[(int)startPosition.x][0]);
                                 return tiles[(int)startPosition.x][0];
+                            }
                         }
                         break; 
                     }
                     if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
                     {
                         if (tiles[(int)startPosition.x][(int)startPosition.y + 1].GetDirectionValid(3))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x][(int)startPosition.y + 1]);
                             return tiles[(int)startPosition.x][(int)startPosition.y + 1];
+                        }
                     }
                     break;
                 }
@@ -261,14 +271,20 @@ public class GridManager : MonoBehaviour
                         if (tiles[0][(int)startPosition.y] != null)
                         {
                             if (tiles[0][(int)startPosition.y].GetDirectionValid(4))
+                            {
+                                CheckPlayerReachedEnd(tiles[0][(int)startPosition.y]);
                                 return tiles[0][(int)startPosition.y];
+                            }
                         }
                         break;
                     }
                     if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
                     {
                         if (tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x + 1][(int)startPosition.y]);
                             return tiles[(int)startPosition.x + 1][(int)startPosition.y];
+                        }
                     }
                     break;
                 }
@@ -279,14 +295,20 @@ public class GridManager : MonoBehaviour
                         if (tiles[(int)startPosition.x][gridSize.y - 1] != null)
                         {
                             if (tiles[(int)startPosition.x][gridSize.y - 1].GetDirectionValid(1))
+                            {
+                                CheckPlayerReachedEnd(tiles[(int)startPosition.x][gridSize.y - 1]);
                                 return tiles[(int)startPosition.x][gridSize.y - 1];
+                            }
                         }
                         break;
                     }
                     if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
                     {
                         if (tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x][(int)startPosition.y - 1]);
                             return tiles[(int)startPosition.x][(int)startPosition.y - 1];
+                        }
                     }
                     break;
                 }
@@ -297,14 +319,20 @@ public class GridManager : MonoBehaviour
                         if (tiles[gridSize.x - 1][(int)startPosition.y] != null)
                         {
                             if (tiles[gridSize.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                            {
+                                CheckPlayerReachedEnd(tiles[gridSize.x - 1][(int)startPosition.y]);
                                 return tiles[gridSize.x - 1][(int)startPosition.y];
+                            }
                         }
                         break;
                     }
                     if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
                     {
                         if (tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                        {
+                            CheckPlayerReachedEnd(tiles[(int)startPosition.x - 1][(int)startPosition.y]);
                             return tiles[(int)startPosition.x - 1][(int)startPosition.y];
+                        }
                     }
                     break;
                 }
@@ -324,5 +352,13 @@ public class GridManager : MonoBehaviour
             gridmsg += "\n";
         }
         Debug.Log(gridmsg);
+    }
+
+    public void CheckPlayerReachedEnd(TileBase tile)
+    {
+        if(tile.transform.position == spawnedEndingTile.transform.position)
+        {
+            SceneManager.LoadScene("WinScene");
+        }
     }
 }
