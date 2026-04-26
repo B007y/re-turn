@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f133a6020d667914f9bb40daaf3106e0
+guid: 428c108dbb90ceb439aad6cb8ce6b24c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1090709166019983190
-    second: tbone2_0
+      213: 4986190733806725710
+    second: entrance_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tbone2_0
+      name: entrance_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aa8cd16dac50dd0f0800000000000000
-      internalID: -1090709166019983190
+      spriteID: e4ae4eeed02823540800000000000000
+      internalID: 4986190733806725710
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tbone2_0: -1090709166019983190
+      entrance_0: 4986190733806725710
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 866192de753888542b0f093764051769, type: 3}
-  m_Name: EndTile
+  m_Name: start tile temp
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  TileName: EndTile
-  sprite: {fileID: -4781373940957465942, guid: 9887b16e9ffe0b046ade6eee9011f1a0, type: 3}
+  TileName: Start
+  sprite: {fileID: 4986190733806725710, guid: 428c108dbb90ceb439aad6cb8ce6b24c, type: 3}
   openDirections: 01000000020000000300000004000000

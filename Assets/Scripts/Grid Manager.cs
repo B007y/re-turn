@@ -13,9 +13,16 @@ public class GridManager : MonoBehaviour
     // 2d array of tile objects
     [SerializeField] TileBase[][] tiles;
     // prefab of the tile to spawn
+    [SerializeField] GameObject emptyTilePrefabs;
     [SerializeField] GameObject tilePrefabs;
     // parent object to hold all the tile objects in hierarchy
     [SerializeField] Transform tileParent;
+
+
+    [Header("Debug")]
+    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] Tile startingTile;
+    [SerializeField] Tile endingTile;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,7 +41,7 @@ public class GridManager : MonoBehaviour
     // create a 2d array of position used to place tiles on grid
     void InitGrid()
     {
-        tileSize = tilePrefabs.GetComponent<SpriteRenderer>().bounds.size;
+        tileSize = emptyTilePrefabs.GetComponent<SpriteRenderer>().bounds.size;
 
         if (tiles != null) ClearGrid();
 
@@ -42,17 +49,46 @@ public class GridManager : MonoBehaviour
         for (int i = 0; i < gridSize.x; i++)
         {
             tiles[i] = new TileBase[(int)gridSize.y];
-            
+
             // spawn empty tile on every grid position
             for (int j = 0; j < gridSize.y; j++)
             {
-                GameObject newObj = Instantiate(tilePrefabs, new Vector2(i * (tileSize.x + gridGap.x), j * (tileSize.y + gridGap.y)), Quaternion.identity);
+                GameObject newObj = Instantiate(emptyTilePrefabs, new Vector2(i * (tileSize.x + gridGap.x), j * (tileSize.y + gridGap.y)), Quaternion.identity);
                 newObj.transform.SetParent(tileParent);
 
                 TileBase tile = newObj.GetComponent<TileBase>();
-               // PutTileOnGrid(tile, new Vector2(i, j));
+                // PutTileOnGrid(tile, new Vector2(i, j));
             }
         }
+
+        SpawnStartingTile();
+        SpawnEndingTile();
+    }
+
+    void SpawnStartingTile()
+    {
+        GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
+        TileBase tile = newObj.GetComponent<TileBase>();
+        tile.Init(startingTile);
+
+        Vector2 roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        PutTileOnGrid(tile, roundVector2);
+        playerMovement.StartingTile = tile;
+        playerMovement.SetPlayer();
+    }
+
+    void SpawnEndingTile()
+    {
+        GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
+        TileBase tile = newObj.GetComponent<TileBase>();
+        tile.Init(endingTile);
+
+        Vector2 roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        while (!CheckPositionAvailability(roundVector2))
+        {
+            roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        }
+        PutTileOnGrid(tile, roundVector2);
     }
 
     // delete all the tile objects on the grid and clear the 2d array
@@ -79,6 +115,7 @@ public class GridManager : MonoBehaviour
         {
             // place the tile on the grid
             tiles[(int)position.x][(int)position.y] = tile;
+            tile.transform.position = new Vector2(position.x * (tileSize.x + gridGap.x), position.y * (tileSize.y + gridGap.y));
             tile.transform.SetParent(tileParent);
             // save position in tile object
             // tile.setCellPosition(position);
@@ -141,11 +178,11 @@ public class GridManager : MonoBehaviour
 
         foreach (int direction in directions)
         {
-            switch(direction)
+            switch (direction)
             {
                 case 1:
                     {
-                        if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null) 
+                        if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
                         {
                             tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y + 1]);
                         }
@@ -159,14 +196,14 @@ public class GridManager : MonoBehaviour
                         }
                         break;
                     }
-                case 3: 
+                case 3:
                     {
                         if (startPosition.y == 0) break;
                         if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
                         {
                             tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y - 1]);
                         }
-                        break; 
+                        break;
                     }
                 case 4:
                     {
@@ -201,7 +238,7 @@ public class GridManager : MonoBehaviour
                 {
                     if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
                     {
-                        if(tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
+                        if (tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
                             return tiles[(int)startPosition.x + 1][(int)startPosition.y];
                     }
                     break;
@@ -211,7 +248,7 @@ public class GridManager : MonoBehaviour
                     if (startPosition.y == 0) break;
                     if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
                     {
-                        if(tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
+                        if (tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
                             return tiles[(int)startPosition.x][(int)startPosition.y - 1];
                     }
                     break;
@@ -221,7 +258,7 @@ public class GridManager : MonoBehaviour
                     if (startPosition.x == 0) break;
                     if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
                     {
-                        if(tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                        if (tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
                             return tiles[(int)startPosition.x - 1][(int)startPosition.y];
                     }
                     break;
