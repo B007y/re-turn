@@ -236,7 +236,7 @@ public class GridManager : MonoBehaviour
     {
         GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
         TileBase tile = newObj.GetComponent<TileBase>();
-        tile.Init(startingTile);
+        tile.Init(startingTile, showBorder: false);
         startingTileObj = tile;
 
         Vector2 roundVector2 = new Vector2(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
@@ -249,7 +249,7 @@ public class GridManager : MonoBehaviour
     {
         GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
         TileBase tile = newObj.GetComponent<TileBase>();
-        tile.Init(endingTile);
+        tile.Init(endingTile, showBorder: false);
         endingTileObj = tile;
 
         Vector2 roundVector2 = new Vector2(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
