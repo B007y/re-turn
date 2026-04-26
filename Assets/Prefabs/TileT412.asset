@@ -15,3 +15,5 @@ MonoBehaviour:
   TileName: TileT412
   sprite: {fileID: -1090709166019983190, guid: f133a6020d667914f9bb40daaf3106e0, type: 3}
   openDirections: 040000000100000002000000
+  isRotationCard: 0
+  rotateClockWise: 1

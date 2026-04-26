@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
 
 public class GridManager : MonoBehaviour
 {
@@ -34,6 +32,7 @@ public class GridManager : MonoBehaviour
     List<Tile> tileSOList = new List<Tile>();
     [SerializeField] int randomTileGen = 20;
 
+    System.Action<int> onRotationPlayedCallback;
 
     [Header("Starting Setup")]
     [SerializeField] PlayerMovement playerMovement;
@@ -68,7 +67,6 @@ public class GridManager : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2Int gridPosition = new Vector2Int(Mathf.RoundToInt(mousePosition.x / (tileSize.x + gridGap.x)), Mathf.RoundToInt(mousePosition.y / (tileSize.y + gridGap.y)));
 
-        waitingForTileChoose = false;
         if (gridPosition.x <= 0 || gridPosition.x >= gridSize.x - 1 || gridPosition.y <= 0 || gridPosition.y >= gridSize.y - 1)
         {
             Debug.Log("Clicked position is out of bounds");
@@ -76,22 +74,28 @@ public class GridManager : MonoBehaviour
         }
 
         // Perform rotation logic here using the chosen tile
-        rotationAnchor.transform.position = new Vector2(gridPosition.x * (tileSize.x + gridGap.x), gridPosition.y * (tileSize.y + gridGap.y));
+        waitingForTileChoose = false;
+        Vector2Int center = new Vector2Int(gridSize.x / 2, gridSize.y / 2);
+        rotationAnchor.transform.position = new Vector2(center.x * (tileSize.x + gridGap.x), center.y * (tileSize.y + gridGap.y));
 
         List<TileBase> tilesToRotate = new();
         for (int i = -rotationRadius; i <= rotationRadius; i++)
         {
             for (int j = -rotationRadius; j <= rotationRadius; j++)
             {
-                Vector2Int checkPosition = new Vector2Int(gridPosition.x + i, gridPosition.y + j);
+                // Vector2Int checkPosition = new Vector2Int(gridPosition.x + i, gridPosition.y + j);
+                Vector2Int checkPosition = new Vector2Int(center.x + i, center.y + j);
                 if (CheckPositionOccupied(checkPosition))
                 {
                     TileBase tileToRotate = tiles[checkPosition.y][checkPosition.x];
+                    tileToRotate.RotateTile(1, rotateTileData.rotateClockWise);
                     tilesToRotate.Add(tileToRotate);
                     tileToRotate.transform.SetParent(rotationAnchor.transform);
                 }
             }
         }
+
+        onRotationPlayedCallback?.Invoke(0);
 
         // Rotate the anchor point
         StartCoroutine(RotateTiles(tilesToRotate, gridPosition));
@@ -128,25 +132,6 @@ public class GridManager : MonoBehaviour
             {
                 int offsetX = center.x - rotationRadius + x;
                 // calculate new grid position based on the rotation
-                // switch (rotationAngle)
-                // {
-                //     case 90:
-                //         temp[blockSize - 1 - x, y] = tiles[offsetY][offsetX];
-                //         break;
-
-                //     case 180:
-                //         temp[blockSize - 1 - x, blockSize - 1 - y] = tiles[offsetY][offsetX];
-                //         break;
-
-                //     case 270:
-                //         temp[x, blockSize - 1 - y] = tiles[offsetY][offsetX];
-                //         break;
-
-                //     default:
-                //         Debug.LogError("Only 90, 180, 270 supported.");
-                //         yield return 0;
-                //         break;
-                // }
                 if (rotateTileData.rotateClockWise)
                     temp[blockSize - 1 - x, y] = tiles[offsetY][offsetX];
                 else
@@ -505,11 +490,12 @@ public class GridManager : MonoBehaviour
 
     #region Rotation
 
-    public void InitRotation(Tile tile)
+    public void InitRotation(Tile tile, System.Action<int> callback)
     {
         rotateTileData = tile;
         MouseLeftAction.Enable();
         waitingForTileChoose = true;
+        onRotationPlayedCallback = callback;
     }
     #endregion
 
