@@ -2526,7 +2526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21484c0ae04938540a677b5f0690a743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
-  gridSize: {x: 5, y: 5}
+  gridSize: {x: 9, y: 9}
   gridGap: {x: 0, y: 0}
   tileSize: {x: 1, y: 1}
   emptyTilePrefabs: {fileID: 866525197738353619, guid: ac0a8033adcb521448a060a9d18cd726, type: 3}
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   mainDeck: {fileID: 1567467025}
   discardPile: {fileID: 1906425421}
   playerInput: {fileID: 774206315}
-  debugCard: {fileID: 0}
+  debugCard: {fileID: 11400000, guid: bb0d05c7f56c71c4baeb31a2fefe96cb, type: 2}
 --- !u!1 &1904170456208060004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,3 +2806,4 @@ SceneRoots:
   - {fileID: 1305966674}
   - {fileID: 5471828611375669240}
   - {fileID: 2094052243}
+  - {fileID: 1742986926}

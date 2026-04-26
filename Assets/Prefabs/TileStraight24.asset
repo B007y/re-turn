@@ -15,3 +15,5 @@ MonoBehaviour:
   TileName: TileStraight24
   sprite: {fileID: 2546458305931194026, guid: b70c630b8a2756e4891a7cd7598296c3, type: 3}
   openDirections: 0200000004000000
+  isRotationCard: 0
+  rotateClockWise: 1

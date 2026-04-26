@@ -61,8 +61,7 @@ public class TileBase : MonoBehaviour
         {
             if (tileData.isRotationCard)
             {
-                gridManagerRef.InitRotation(tileData);
-                onCardPlayedCallback?.Invoke(0);
+                gridManagerRef.InitRotation(tileData, onCardPlayedCallback);
             }
             else
             {
@@ -107,45 +106,22 @@ public class TileBase : MonoBehaviour
         }
     }
 
-    public void RotateTile(int amount, bool right)
+    public void RotateTile(int amount, bool clockwise)
     {
-        switch (right)
+        switch (clockwise)
         {
             case true:
-                foreach (int direction in openDirections)
+                for (int i = 0; i < openDirections.Length; i++)
                 {
-                    if (openDirections[direction] != 0)
-                        if (openDirections[direction] != 0)
-                        {
-                            openDirections[direction] += amount;
-
-                            if (openDirections[direction] < 4)
-                            {
-                                openDirections[direction] -= 4;
-                                if (openDirections[direction] < 4)
-                                {
-                                    openDirections[direction] -= 4;
-                                }
-                            }
-
-
-                        }
-
+                    openDirections[i] += amount;
+                    if (openDirections[i] > 4) openDirections[i] = 1;
                 }
                 break;
             case false:
-                foreach (int direction in openDirections)
+                for (int i = 0; i < openDirections.Length; i++)
                 {
-                    if (openDirections[direction] != 0)
-                    {
-                        openDirections[direction] -= amount;
-
-                        if (openDirections[direction] > 4)
-                        {
-                            openDirections[direction] += 4;
-                        }
-                    }
-
+                    openDirections[i] -= amount;
+                    if (openDirections[i] < 1) openDirections[i] = 4;
                 }
                 break;
         }
