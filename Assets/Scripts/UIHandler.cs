@@ -11,6 +11,7 @@ public class UIHandler : MonoBehaviour
     public InputAction ESCKey;
     public float TimerSeconds = 0;
     float Timer = 0;
+    [SerializeField] string sceneToLoad;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,6 +55,6 @@ public class UIHandler : MonoBehaviour
     // Restart button functionality
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
