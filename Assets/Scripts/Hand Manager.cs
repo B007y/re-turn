@@ -157,4 +157,12 @@ public class HandManager : TileCollection
         SelectCard(card);
     }
 
+    // debug -------------
+    [SerializeField] Tile debugCard;
+    [ContextMenu("Add A Card")]
+    void AddRandomCard()
+    {
+        Add(debugCard);
+    }
+
 }
