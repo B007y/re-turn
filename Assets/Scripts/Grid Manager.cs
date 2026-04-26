@@ -39,6 +39,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Starting Setup")]
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerPathFinding eurydice;
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
     [SerializeField] TileBase startingTileObj;
@@ -106,6 +107,10 @@ public class GridManager : MonoBehaviour
                     if (playerMovement.CurrentTile == tileToRotate)
                     {
                         playerMovement.transform.SetParent(rotationAnchor.transform);
+                    }                   
+                    if(eurydice.CurrentTile == tileToRotate)
+                    {
+                        eurydice.transform.SetParent(rotationAnchor.transform);
                     }
                 }
             }
@@ -130,6 +135,7 @@ public class GridManager : MonoBehaviour
             rotationAnchor.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsedTime / rotationTime);
             elapsedTime += Time.deltaTime;
 
+            eurydice.transform.eulerAngles = Vector3.zero;
             // fix player, start, end rotation
             playerMovement.transform.eulerAngles = playerOriginalRotation.eulerAngles;
             startingTileObj.transform.eulerAngles = Vector3.zero;
@@ -151,6 +157,7 @@ public class GridManager : MonoBehaviour
 
         // set player parent back to tile parent after rotation
         playerMovement.transform.SetParent(tileParent);
+        eurydice.transform.SetParent(tileParent);
 
         int blockSize = 1 + 2 * rotationRadius;
         TileBase[,] temp = new TileBase[blockSize, blockSize];
@@ -245,6 +252,9 @@ public class GridManager : MonoBehaviour
         PutTileOnGrid(tile, roundVector2);
         playerMovement.StartingTile = tile;
         playerMovement.SetPlayer();
+
+        eurydice.StartingTile = tile;
+        eurydice.InitPosition();
     }
 
     void SpawnEndingTile()
@@ -515,6 +525,11 @@ public class GridManager : MonoBehaviour
                 }
         }
         return null;
+    }
+
+    public TileBase GetTileAtPosition(Vector2 p)
+    {
+        return tiles[(int)p.y][(int)p.x];
     }
 
     public void PrintGrid()
