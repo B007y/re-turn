@@ -99,7 +99,7 @@ public class PlayerPathFinding : MonoBehaviour
         foreach(int direction in targetTile.tile.GetTileDirections())
         {
 
-            TileBase foundTile = GridManagerRef.GetTileByDirection(direction, targetTile.tile.transform.position);
+            TileBase foundTile = GridManagerRef.GetTileByDirection(direction, new Vector2Int((int)targetTile.tile.transform.position.x, (int)targetTile.tile.transform.position.y));
             if (foundTile != null) 
             {
                 Vector2 tempCoordinates = foundTile.transform.position;
