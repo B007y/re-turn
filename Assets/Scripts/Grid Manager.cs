@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class GridManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] Transform tileParent;
 
     [Header("Rotation")]
-    [SerializeField] int rotationAngle;
+    int rotationAngle = 90;
     [SerializeField] int rotationRadius = 1;
     [SerializeField] GameObject rotationAnchor;
     [SerializeField] InputAction MouseLeftAction;
@@ -91,7 +92,7 @@ public class GridManager : MonoBehaviour
         float elapsedTime = 0f;
 
         Quaternion initialRotation = rotationAnchor.transform.rotation;
-        Quaternion targetRotation = initialRotation * Quaternion.Euler(0, 0, -rotationAngle);
+        Quaternion targetRotation = initialRotation * Quaternion.Euler(0, 0, rotateTileData.rotateClockWise ? -rotationAngle : rotationAngle);
 
         while (elapsedTime < rotationTime)
         {
@@ -115,25 +116,29 @@ public class GridManager : MonoBehaviour
             {
                 int offsetX = center.x - rotationRadius + x;
                 // calculate new grid position based on the rotation
-                switch (rotationAngle)
-                {
-                    case 90:
-                        temp[blockSize - 1 - x, y] = tiles[offsetY][offsetX];
-                        break;
+                // switch (rotationAngle)
+                // {
+                //     case 90:
+                //         temp[blockSize - 1 - x, y] = tiles[offsetY][offsetX];
+                //         break;
 
-                    case 180:
-                        temp[blockSize - 1 - x, blockSize - 1 - y] = tiles[offsetY][offsetX];
-                        break;
+                //     case 180:
+                //         temp[blockSize - 1 - x, blockSize - 1 - y] = tiles[offsetY][offsetX];
+                //         break;
 
-                    case 270:
-                        temp[x, blockSize - 1 - y] = tiles[offsetY][offsetX];
-                        break;
+                //     case 270:
+                //         temp[x, blockSize - 1 - y] = tiles[offsetY][offsetX];
+                //         break;
 
-                    default:
-                        Debug.LogError("Only 90, 180, 270 supported.");
-                        yield return 0;
-                        break;
-                }
+                //     default:
+                //         Debug.LogError("Only 90, 180, 270 supported.");
+                //         yield return 0;
+                //         break;
+                // }
+                if (rotateTileData.rotateClockWise)
+                    temp[blockSize - 1 - x, y] = tiles[offsetY][offsetX];
+                else
+                    temp[x, blockSize - 1 - y] = tiles[offsetY][offsetX];
             }
         }
 
