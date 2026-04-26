@@ -445,7 +445,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.2714489, g: 0.27594835, b: 0.2830189, a: 0}
+  m_BackGroundColor: {r: 0.3372549, g: 0.54901963, b: 0.6156863, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -470,7 +470,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -495,7 +495,7 @@ Transform:
   m_GameObject: {fileID: 749059357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.44, y: 1.63, z: -10}
+  m_LocalPosition: {x: 4, y: 3.22, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -960,9 +960,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainDeck
   MaxCard: -1
   levelTiles:
+  - tile: {fileID: 11400000, guid: 3f46890f56bf634418274e8337394bb4, type: 2}
+    count: 4
+  - tile: {fileID: 11400000, guid: f23bfd159f896db42b2c021355e39b44, type: 2}
+    count: 4
   - tile: {fileID: 11400000, guid: aeb32647a2adcff4f905b48f38a52d82, type: 2}
-    count: 2
+    count: 4
+  - tile: {fileID: 11400000, guid: 9467173699f0eec4ebf0cd50201e6cc3, type: 2}
+    count: 4
   - tile: {fileID: 11400000, guid: be27134ce47c8e3468c182497d4b51b2, type: 2}
+    count: 4
+  - tile: {fileID: 11400000, guid: a09d55abf81b5074580e30f2c7c39391, type: 2}
+    count: 4
+  - tile: {fileID: 11400000, guid: 31a86562ed5b614448ae811c63dc68b9, type: 2}
+    count: 4
+  - tile: {fileID: 11400000, guid: a657632c00763864cbcb5fb9ab6fc111, type: 2}
     count: 4
   handManager: {fileID: 1831214087118392666}
 --- !u!4 &1567467026
@@ -1281,7 +1293,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1831214087118392666}
         m_TargetAssemblyTypeName: HandManager, Assembly-CSharp
-        m_MethodName: ClearHand
+        m_MethodName: WashHandToDraw
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2054,7 +2066,7 @@ MonoBehaviour:
   gridSize: {x: 9, y: 9}
   gridGap: {x: 0, y: 0}
   tileSize: {x: 1, y: 1}
-  tilePrefabs: {fileID: 8062100705751506593, guid: 9932df07be4c09446874753519e4fe24, type: 3}
+  tilePrefabs: {fileID: 866525197738353619, guid: ac0a8033adcb521448a060a9d18cd726, type: 3}
   tileParent: {fileID: 2145770231}
 --- !u!4 &2034565882
 Transform:
