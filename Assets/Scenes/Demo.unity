@@ -2595,28 +2595,7 @@ MonoBehaviour:
   emptyTilePrefabs: {fileID: 866525197738353619, guid: ac0a8033adcb521448a060a9d18cd726, type: 3}
   tilePrefabs: {fileID: 4380659495089778177, guid: 1d58133d9bb54a7448dc843b0df3b2d9, type: 3}
   tileParent: {fileID: 2145770231}
-  rotationAngle: 90
-  rotationRadius: 1
-  rotationAnchor: {fileID: 1715810240}
-  rotationAnchorPos: {x: 0, y: 0}
-  MouseLeftAction:
-    m_Name: Mouse Left
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 52445006-8bc1-45fe-9201-dd646b745cc7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 0bb969ae-b034-43bc-aa65-22cf3a08e3e0
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Mouse Left
-      m_Flags: 0
-    m_Flags: 0
-  waitingForTileChoose: 0
+  randomTileGen: 20
   playerMovement: {fileID: 774206312}
   startingTile: {fileID: 11400000, guid: 6c1cb1724b225b04790374799cb81c69, type: 2}
   endingTile: {fileID: 11400000, guid: be908251886902d49bddbf1dcb74544d, type: 2}

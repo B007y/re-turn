@@ -30,11 +30,21 @@ public class GridManager : MonoBehaviour
     [SerializeField] InputAction MouseLeftAction;
     [SerializeField] bool waitingForTileChoose = false;
     [SerializeField] Tile rotateTileData;
+    List<Tile> tileSOList = new List<Tile>();
+    [SerializeField] int randomTileGen = 20;
+
 
     [Header("Starting Setup")]
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
+
+
+    void Awake()
+    {
+        tileSOList = Resources.LoadAll<Tile>("TilesSO").ToList();
+        Debug.Log("Loaded " + tileSOList.Count + " tile scriptable objects.");
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -185,6 +195,24 @@ public class GridManager : MonoBehaviour
 
         SpawnStartingTile();
         SpawnEndingTile();
+        for (int i = 0; i < randomTileGen; i++)
+        {
+            SpawnRandomTile();
+        }
+    }
+
+    void SpawnRandomTile()
+    {
+        GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
+        TileBase tile = newObj.GetComponent<TileBase>();
+        tile.Init(tileSOList[Random.Range(0, tileSOList.Count)]);
+
+        Vector2 roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        while (!CheckPositionAvailability(roundVector2))
+        {
+            roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        }
+        PutTileOnGrid(tile, roundVector2);
     }
 
     void SpawnStartingTile()
