@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: start tile temp
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   TileName: Start
-  sprite: {fileID: 5159331049549941161, guid: 046f94e4425972c43abd4dc39a4e582b, type: 3}
+  sprite: {fileID: 4986190733806725710, guid: 428c108dbb90ceb439aad6cb8ce6b24c, type: 3}
   openDirections: 01000000020000000300000004000000
