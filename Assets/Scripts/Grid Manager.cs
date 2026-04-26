@@ -18,12 +18,21 @@ public class GridManager : MonoBehaviour
     // parent object to hold all the tile objects in hierarchy
     [SerializeField] Transform tileParent;
 
+    List<Tile> tileSOList = new List<Tile>();
+    [SerializeField] int randomTileGen = 20;
+
 
     [Header("Debug")]
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Tile startingTile;
     [SerializeField] Tile endingTile;
 
+
+    void Awake()
+    {
+        tileSOList = Resources.LoadAll<Tile>("TilesSO").ToList();
+        Debug.Log("Loaded " + tileSOList.Count + " tile scriptable objects.");
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,6 +72,24 @@ public class GridManager : MonoBehaviour
 
         SpawnStartingTile();
         SpawnEndingTile();
+        for (int i = 0; i < randomTileGen; i++)
+        {
+            SpawnRandomTile();
+        }
+    }
+
+    void SpawnRandomTile()
+    {
+        GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
+        TileBase tile = newObj.GetComponent<TileBase>();
+        tile.Init(tileSOList[Random.Range(0, tileSOList.Count)]);
+
+        Vector2 roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        while (!CheckPositionAvailability(roundVector2))
+        {
+            roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        }
+        PutTileOnGrid(tile, roundVector2);
     }
 
     void SpawnStartingTile()
@@ -245,7 +272,7 @@ public class GridManager : MonoBehaviour
                 }
             case 3:
                 {
-                    if (startPosition.y == 0) break;
+                    // if (startPosition.y == 0) break;
                     if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
                     {
                         if (tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
@@ -255,7 +282,7 @@ public class GridManager : MonoBehaviour
                 }
             case 4:
                 {
-                    if (startPosition.x == 0) break;
+                    // if (startPosition.x == 0) break;
                     if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
                     {
                         if (tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))

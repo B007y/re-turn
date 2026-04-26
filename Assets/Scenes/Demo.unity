@@ -650,8 +650,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -840.62335, y: -549.84064, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 113168923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1111,7 +1111,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   TimerSeconds: 0.2
-  sceneToLoad: 
+  sceneToLoad: Demo
 --- !u!4 &1305966674
 Transform:
   m_ObjectHideFlags: 0
@@ -2267,6 +2267,7 @@ MonoBehaviour:
   emptyTilePrefabs: {fileID: 866525197738353619, guid: ac0a8033adcb521448a060a9d18cd726, type: 3}
   tilePrefabs: {fileID: 4380659495089778177, guid: 1d58133d9bb54a7448dc843b0df3b2d9, type: 3}
   tileParent: {fileID: 2145770231}
+  randomTileGen: 20
   playerMovement: {fileID: 774206312}
   startingTile: {fileID: 11400000, guid: 6c1cb1724b225b04790374799cb81c69, type: 2}
   endingTile: {fileID: 11400000, guid: be908251886902d49bddbf1dcb74544d, type: 2}
