@@ -3,6 +3,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] GameObject charSpriteObj;
+    [SerializeField] float floatingSpeed = 1f;
+    [SerializeField] float floatingHeight = 0.1f;
+
+
     [SerializeField] InputAction LeftAction;
     [SerializeField] InputAction RightAction;
     [SerializeField] InputAction UpAction;
@@ -61,6 +66,14 @@ public class PlayerMovement : MonoBehaviour
         {
             timer = TimerMax;
             gridManager.PrintGrid();
+        }
+
+        // animate sprite floating
+        if (charSpriteObj != null)
+        {
+            Vector3 position = charSpriteObj.transform.localPosition;
+            position.y = (Mathf.Sin(Time.time * floatingSpeed) + 1) * floatingHeight;
+            charSpriteObj.transform.localPosition = position;
         }
     }
 
