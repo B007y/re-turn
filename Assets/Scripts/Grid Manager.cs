@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance { get; private set; }
 
     // size of the board
-    [SerializeField] Vector2Int gridSize;
+    public Vector2Int gridSize;
     // gap between tiles
     [SerializeField] Vector2Int gridGap;
     // object size of a single tile
