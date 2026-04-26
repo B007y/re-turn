@@ -83,11 +83,12 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer(int Direction)
     {
         if (CurrentTile == null) SetPlayer();
+
+        SetPlayerFacing(Direction);
         if (!CurrentTile.GetDirectionValid(Direction)) return;
         if (timer > 0) return;
         if (moveCoroutine != null) return;
 
-        
         timer = TimerMax;
 
         Debug.Log("Starting Movement");
@@ -103,32 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
         //Vector2 position = transform.position;
 
-        // 1 = up | 2 = right | 3 = down | 4 = left
-        //switch (Direction)
-        //{
-        //    case 1:
-        //        {
-        //            position.y += 1;
-        //            break;
-        //        }
-        //    case 2:
-        //        {
-        //            position.x += 1;
-        //            break;
-        //        }
-        //    case 3:
-        //        {
-        //            position.y -= 1;
-        //            break;
-        //        }
-        //    case 4:
-        //        {
-        //            position.x -= 1;
-        //            break;
-        //        }
-        //}
-        CurrentTile = tile;
-
         FMODUnity.RuntimeManager.PlayOneShot("event:/Footsteps", Vector3.zero);
         if (moveCoroutine == null)
         {
@@ -137,7 +112,37 @@ public class PlayerMovement : MonoBehaviour
             else
                 moveCoroutine = StartCoroutine(MovePlayerCoroutine(tile.transform.position));
         }
+        CurrentTile = tile;
     }
+
+    void SetPlayerFacing(int Direction)
+    {
+        // 1 = up | 2 = right | 3 = down | 4 = left
+        switch (Direction)
+        {
+            case 1:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                    break;
+                }
+            case 2:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 270);
+                    break;
+                }
+            case 3:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 180);
+                    break;
+                }
+            case 4:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 90);
+                    break;
+                }
+        }
+    }
+
 
     bool CheckWalkingOutsideBorder(int Direction)
     {
@@ -145,8 +150,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (CurrentTile.cellPosition.x == 0 && Direction == 4) return true;
         if (CurrentTile.cellPosition.x == gridManager.gridSize.x - 1 && Direction == 2) return true;
-        if (CurrentTile.cellPosition.y == 0 && Direction == 1) return true;
-        if (CurrentTile.cellPosition.y == gridManager.gridSize.y - 1 && Direction == 3) return true;
+        if (CurrentTile.cellPosition.y == 0 && Direction == 3) return true;
+        if (CurrentTile.cellPosition.y == gridManager.gridSize.y - 1 && Direction == 1) return true;
         return false;
     }
 
@@ -198,16 +203,16 @@ public class PlayerMovement : MonoBehaviour
         switch (Direction)
         {
             case 1:
-                midTarget.y -= 1f;
+                startPosition.y -= 1f;
                 break;
             case 2:
-                midTarget.x -= 1f;
+                startPosition.x -= 1f;
                 break;
             case 3:
-                midTarget.y += 1f;
+                startPosition.y += 1f;
                 break;
             case 4:
-                midTarget.x += 1f;
+                startPosition.x += 1f;
                 break;
         }
         elapsedTime = 0f;

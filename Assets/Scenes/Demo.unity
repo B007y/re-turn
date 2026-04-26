@@ -860,7 +860,7 @@ GameObject:
   - component: {fileID: 1238129613}
   - component: {fileID: 1238129612}
   m_Layer: 5
-  m_Name: draw btn
+  m_Name: end turn btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -945,6 +945,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1611333800}
         m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
         m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2034565881}
+        m_TargetAssemblyTypeName: GridManager, Assembly-CSharp
+        m_MethodName: NextTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1093,7 +1105,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -16, y: -16}
+  m_SizeDelta: {x: -32, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1351868667
 MonoBehaviour:
@@ -1115,7 +1127,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: End Turn
+  m_text: Turn 0 / 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1142,7 +1154,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 52
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1242,6 +1254,8 @@ MonoBehaviour:
     count: 4
   - tile: {fileID: 11400000, guid: a657632c00763864cbcb5fb9ab6fc111, type: 2}
     count: 4
+  - tile: {fileID: 11400000, guid: fba8518c82f34ee4c855bd8ff73a5417, type: 2}
+    count: 10
   handManager: {fileID: 1831214087118392666}
 --- !u!4 &1567467026
 Transform:
@@ -1937,6 +1951,8 @@ MonoBehaviour:
   endingTile: {fileID: 11400000, guid: be908251886902d49bddbf1dcb74544d, type: 2}
   startingTileObj: {fileID: 0}
   endingTileObj: {fileID: 0}
+  maxTurn: 10
+  turnText: {fileID: 1351868667}
 --- !u!4 &2034565882
 Transform:
   m_ObjectHideFlags: 0
