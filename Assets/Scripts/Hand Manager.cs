@@ -139,7 +139,7 @@ public class HandManager : TileCollection
         }
         else
         {
-            if (selectedTileObj.tileData.isRotationCard)
+            if (selectedTileObj?.tileData.isRotationCard == true)
             {
                 TilesObjPool.Instance.ReturnTile(selectedTileObj);
             }
