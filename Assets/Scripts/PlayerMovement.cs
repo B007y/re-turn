@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if (timer > 0) return;
         if (moveCoroutine != null) return;
 
-        
+
         timer = TimerMax;
 
         Debug.Log("Starting Movement");
@@ -104,29 +104,29 @@ public class PlayerMovement : MonoBehaviour
         //Vector2 position = transform.position;
 
         // 1 = up | 2 = right | 3 = down | 4 = left
-        //switch (Direction)
-        //{
-        //    case 1:
-        //        {
-        //            position.y += 1;
-        //            break;
-        //        }
-        //    case 2:
-        //        {
-        //            position.x += 1;
-        //            break;
-        //        }
-        //    case 3:
-        //        {
-        //            position.y -= 1;
-        //            break;
-        //        }
-        //    case 4:
-        //        {
-        //            position.x -= 1;
-        //            break;
-        //        }
-        //}
+        switch (Direction)
+        {
+            case 1:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                    break;
+                }
+            case 2:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 270);
+                    break;
+                }
+            case 3:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 180);
+                    break;
+                }
+            case 4:
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 90);
+                    break;
+                }
+        }
 
         FMODUnity.RuntimeManager.PlayOneShot("event:/Footsteps", Vector3.zero);
         if (moveCoroutine == null)

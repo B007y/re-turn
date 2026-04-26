@@ -116,11 +116,12 @@ public class GridManager : MonoBehaviour
         }
 
         // Rotate the anchor point
-        StartCoroutine(RotateTiles(tilesToRotate, center));
+        Quaternion playerOriginalRotation = playerMovement.transform.rotation;
+        StartCoroutine(RotateTiles(tilesToRotate, center, playerOriginalRotation));
     }
 
     // rotation animaiton, update the tiles array after the animation is done
-    IEnumerator RotateTiles(List<TileBase> tilesToRotate, Vector2Int center)
+    IEnumerator RotateTiles(List<TileBase> tilesToRotate, Vector2Int center, Quaternion playerOriginalRotation)
     {
         float rotationTime = 0.5f; // Duration of the rotation
         float elapsedTime = 0f;
@@ -134,7 +135,7 @@ public class GridManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             // fix player rotation
-            playerMovement.transform.eulerAngles = Vector3.zero;
+            playerMovement.transform.eulerAngles = playerOriginalRotation.eulerAngles;
             startingTileObj.transform.eulerAngles = Vector3.zero;
             endingTileObj.transform.eulerAngles = Vector3.zero;
 
