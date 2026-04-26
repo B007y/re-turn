@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerHand : TileCollection
 {
-    public TileBase SelectedTile { get; private set; }
+    public Tile SelectedTile { get; private set; }
 
-    public bool SelectTile(TileBase tile)
+    public bool SelectTile(Tile tile)
     {
         if (!Contains(tile)) return false;
         SelectedTile = tile;
@@ -16,24 +16,24 @@ public class PlayerHand : TileCollection
         SelectedTile = null;
     }
 
-    public void ReturnTile(TileBase tile)
+    public void ReturnTile(Tile tile)
     {
         Add(tile);
     }
 
-    public void ConsumeTile(TileBase tile, DiscardPile discard)
+    public void ConsumeTile(Tile tile, DiscardPile discard)
     {
         if (!Contains(tile)) return;
         if (discard == null) return;
         TransferTo(tile, discard);
     }
 
-    protected override void OnTileAdded(TileBase tile)
+    protected override void OnTileAdded(Tile tile)
     {
         // future: notify UI to update hand display
     }
 
-    protected override void OnTileRemoved(TileBase tile)
+    protected override void OnTileRemoved(Tile tile)
     {
         if (SelectedTile == tile) SelectedTile = null;
         // future: notify UI to update hand display

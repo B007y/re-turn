@@ -3,21 +3,28 @@ using UnityEngine;
 
 public abstract class TileCollection : MonoBehaviour
 {
-    protected List<TileBase> tiles = new List<TileBase>();
+    protected List<Tile> tiles = new List<Tile>();
 
     public int Count => tiles.Count;
+    public int MaxCard = -1;
 
-    public IReadOnlyList<TileBase> Tiles => tiles.AsReadOnly();
+    public IReadOnlyList<Tile> Tiles => tiles.AsReadOnly();
 
-    public void Add(TileBase tile)
+    public bool Add(Tile tile)
     {
-        if (tile == null) return;
-        if (tiles.Contains(tile)) return;
+        if (tile == null) return false;
+        // if (tiles.Contains(tile)) return;
+        if (MaxCard > 0 && tiles.Count >= MaxCard)
+        {
+            Debug.LogWarning("Cannot add tile: collection is full.");
+            return false;
+        }
         tiles.Add(tile);
         OnTileAdded(tile);
+        return true;
     }
 
-    public bool Remove(TileBase tile)
+    public bool Remove(Tile tile)
     {
         if (tile == null) return false;
         bool removed = tiles.Remove(tile);
@@ -25,17 +32,19 @@ public abstract class TileCollection : MonoBehaviour
         return removed;
     }
 
-    public bool Contains(TileBase tile)
+    public bool Contains(Tile tile)
     {
         return tiles.Contains(tile);
     }
 
-    public void TransferTo(TileBase tile, TileCollection destination)
+    public bool TransferTo(Tile tile, TileCollection destination)
     {
-        if (!Contains(tile)) return;
-        if (destination == null) return;
+        if (!Contains(tile)) return false;
+        if (destination == null) return false;
+        if (!destination.Add(tile)) return false;
+        
         Remove(tile);
-        destination.Add(tile);
+        return true;
     }
 
     public void Clear()
@@ -43,6 +52,6 @@ public abstract class TileCollection : MonoBehaviour
         tiles.Clear();
     }
 
-    protected virtual void OnTileAdded(TileBase tile) { }
-    protected virtual void OnTileRemoved(TileBase tile) { }
+    protected virtual void OnTileAdded(Tile tile) { }
+    protected virtual void OnTileRemoved(Tile tile) { }
 }

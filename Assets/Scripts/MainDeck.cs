@@ -1,16 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public struct TileEntry
 {
-    public GameObject tilePrefab;
+    public Tile tile;
     public int count;
 }
 
 public class MainDeck : TileCollection
 {
     [SerializeField] TileEntry[] levelTiles;
-    [SerializeField] Transform spawnParent;
+    [SerializeField] HandManager handManager;
 
     void Start()
     {
@@ -24,28 +25,39 @@ public class MainDeck : TileCollection
         {
             for (int i = 0; i < entry.count; i++)
             {
-                GameObject obj = Instantiate(entry.tilePrefab, spawnParent);
-                TileBase tile = obj.GetComponent<TileBase>();
+                Tile tile = entry.tile;
                 if (tile != null)
                     Add(tile);
                 else
-                    Debug.LogWarning($"Prefab {entry.tilePrefab.name} has no TileBase component.");
+                    Debug.LogWarning($"Prefab {entry.tile.name} has no Tile component.");
             }
+        }
+
+        // randomize the deck
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            int j = Random.Range(i, tiles.Count);
+            Tile temp = tiles[i];
+            tiles[i] = tiles[j];
+            tiles[j] = temp;
         }
     }
 
-    public void DealAllTo(PlayerHand hand)
+    public void DealAllTo(TileCollection hand = null)
     {
-        TileBase[] snapshot = new TileBase[tiles.Count];
+        if (hand == null) hand = handManager;
+        
+        Tile[] snapshot = new Tile[tiles.Count];
         tiles.CopyTo(snapshot);
-        foreach (TileBase tile in snapshot)
+        foreach (Tile tile in snapshot)
             TransferTo(tile, hand);
     }
 
-    public bool DealOneTo(PlayerHand hand)
+    public void DealOneTo(TileCollection hand = null)
     {
-        if (tiles.Count == 0) return false;
+        if (hand == null) hand = handManager;
+        
+        if (tiles.Count == 0) return;
         TransferTo(tiles[0], hand);
-        return true;
     }
 }
