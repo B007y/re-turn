@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EndTile
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   TileName: EndTile
-  sprite: {fileID: 5159331049549941161, guid: 046f94e4425972c43abd4dc39a4e582b, type: 3}
+  sprite: {fileID: -4781373940957465942, guid: 9887b16e9ffe0b046ade6eee9011f1a0, type: 3}
   openDirections: 01000000020000000300000004000000

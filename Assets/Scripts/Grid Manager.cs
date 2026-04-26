@@ -22,6 +22,7 @@ public class GridManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Tile startingTile;
+    [SerializeField] Tile endingTile;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -61,6 +62,7 @@ public class GridManager : MonoBehaviour
         }
 
         SpawnStartingTile();
+        SpawnEndingTile();
     }
 
     void SpawnStartingTile()
@@ -69,9 +71,24 @@ public class GridManager : MonoBehaviour
         TileBase tile = newObj.GetComponent<TileBase>();
         tile.Init(startingTile);
 
-        Vector2 roundVector2 = new Vector2(Mathf.RoundToInt(tile.transform.position.x), Mathf.RoundToInt(tile.transform.position.y));
+        Vector2 roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
         PutTileOnGrid(tile, roundVector2);
         playerMovement.StartingTile = tile;
+        playerMovement.SetPlayer();
+    }
+
+    void SpawnEndingTile()
+    {
+        GameObject newObj = Instantiate(tilePrefabs, new Vector2(0, 0), Quaternion.identity);
+        TileBase tile = newObj.GetComponent<TileBase>();
+        tile.Init(endingTile);
+
+        Vector2 roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        while (!CheckPositionAvailability(roundVector2))
+        {
+            roundVector2 = new Vector2(Random.Range(0, 9), Random.Range(0, 9));
+        }
+        PutTileOnGrid(tile, roundVector2);
     }
 
     // delete all the tile objects on the grid and clear the 2d array
@@ -98,6 +115,7 @@ public class GridManager : MonoBehaviour
         {
             // place the tile on the grid
             tiles[(int)position.x][(int)position.y] = tile;
+            tile.transform.position = new Vector2(position.x * (tileSize.x + gridGap.x), position.y * (tileSize.y + gridGap.y));
             tile.transform.SetParent(tileParent);
             // save position in tile object
             // tile.setCellPosition(position);
