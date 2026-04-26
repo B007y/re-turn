@@ -109,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
         //}
         CurrentTile = tile;
         transform.position = tile.transform.position;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Footsteps", Vector3.zero);
     }
 
     public void SetPlayer()
