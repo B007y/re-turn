@@ -73,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("Starting Movement");
 
+        Debug.Log("Direction: " + Direction);
+        Debug.Log("Current Tile: " + CurrentTile.transform.position);
         TileBase tile = gridManager.GetTileByDirection(Direction, CurrentTile.transform.position);
         // if no tile is found, do nothing
         if (tile == null) {

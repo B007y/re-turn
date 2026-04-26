@@ -123,10 +123,10 @@ public class HandManager : TileCollection
         selectedCard = null;
 
         // return the tile to the pool id not played
-        if (!played)
-        {
-            TilesObjPool.Instance.ReturnTile(selectedTileObj);
-        }
+        // if (!played)
+        // {
+        //     TilesObjPool.Instance.ReturnTile(selectedTileObj);
+        // }
         selectedTileObj?.DeselectTile();
         selectedTileObj = null;
     }
