@@ -2255,7 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21484c0ae04938540a677b5f0690a743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
-  gridSize: {x: 5, y: 5}
+  gridSize: {x: 9, y: 9}
   gridGap: {x: 0, y: 0}
   tileSize: {x: 1, y: 1}
   emptyTilePrefabs: {fileID: 866525197738353619, guid: ac0a8033adcb521448a060a9d18cd726, type: 3}
@@ -2282,7 +2282,7 @@ MonoBehaviour:
     m_Flags: 0
   waitingForTileChoose: 0
   rotateTileData: {fileID: 0}
-  randomTileGen: 20
+  randomTileGen: 10
   playerMovement: {fileID: 774206312}
   startingTile: {fileID: 11400000, guid: 6c1cb1724b225b04790374799cb81c69, type: 2}
   endingTile: {fileID: 11400000, guid: be908251886902d49bddbf1dcb74544d, type: 2}
