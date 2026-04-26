@@ -84,34 +84,34 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("Tile is valid");
 
-        Vector2 position = transform.position;
+        //Vector2 position = transform.position;
         
         // 1 = up | 2 = right | 3 = down | 4 = left
-        switch (Direction)
-        {
-            case 1:
-                {
-                    position.y += 1;
-                    break;
-                }
-            case 2:
-                {
-                    position.x += 1;
-                    break;
-                }
-            case 3:
-                {
-                    position.y -= 1;
-                    break;
-                }
-            case 4:
-                {
-                    position.x -= 1;
-                    break;
-                }
-        }
+        //switch (Direction)
+        //{
+        //    case 1:
+        //        {
+        //            position.y += 1;
+        //            break;
+        //        }
+        //    case 2:
+        //        {
+        //            position.x += 1;
+        //            break;
+        //        }
+        //    case 3:
+        //        {
+        //            position.y -= 1;
+        //            break;
+        //        }
+        //    case 4:
+        //        {
+        //            position.x -= 1;
+        //            break;
+        //        }
+        //}
         CurrentTile = tile;
-        transform.position = position;
+        transform.position = tile.transform.position;
     }
 
     public void SetPlayer()
