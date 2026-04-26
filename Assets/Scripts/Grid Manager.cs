@@ -496,6 +496,11 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    public TileBase GetTileAtPosition(Vector2 p)
+    {
+        return tiles[(int)p.y][(int)p.x];
+    }
+
     public void PrintGrid()
     {
         string gridmsg = "\n";
