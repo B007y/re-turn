@@ -1867,69 +1867,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2145770231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1742986924
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1742986926}
-  - component: {fileID: 1742986925}
-  m_Layer: 0
-  m_Name: Music Object
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1742986925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742986924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 170100565
-      Data2: 1165087327
-      Data3: -1545160828
-      Data4: -202840891
-    Path: event:/MusicEvent
-  Event: 
-  EventPlayTrigger: 1
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!4 &1742986926
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742986924}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1772002247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2595,10 +2532,8 @@ MonoBehaviour:
   emptyTilePrefabs: {fileID: 866525197738353619, guid: ac0a8033adcb521448a060a9d18cd726, type: 3}
   tilePrefabs: {fileID: 4380659495089778177, guid: 1d58133d9bb54a7448dc843b0df3b2d9, type: 3}
   tileParent: {fileID: 2145770231}
-  rotationAngle: 90
   rotationRadius: 1
   rotationAnchor: {fileID: 1715810240}
-  rotationAnchorPos: {x: 0, y: 0}
   MouseLeftAction:
     m_Name: Mouse Left
     m_Type: 0
@@ -2617,6 +2552,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   waitingForTileChoose: 0
+  rotateTileData: {fileID: 0}
   playerMovement: {fileID: 774206312}
   startingTile: {fileID: 11400000, guid: 6c1cb1724b225b04790374799cb81c69, type: 2}
   endingTile: {fileID: 11400000, guid: be908251886902d49bddbf1dcb74544d, type: 2}
@@ -2763,6 +2699,7 @@ MonoBehaviour:
   mainDeck: {fileID: 1567467025}
   discardPile: {fileID: 1906425421}
   playerInput: {fileID: 774206315}
+  debugCard: {fileID: 0}
 --- !u!1 &1904170456208060004
 GameObject:
   m_ObjectHideFlags: 0
