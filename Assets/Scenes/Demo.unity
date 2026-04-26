@@ -2267,12 +2267,12 @@ MonoBehaviour:
     m_Name: Mouse Left
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 52445006-8bc1-45fe-9201-dd646b745cc7
+    m_Id: f4889f62-a436-4028-a6ab-8d21dfddca9d
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 0bb969ae-b034-43bc-aa65-22cf3a08e3e0
+      m_Id: 763551cf-5c85-4c82-9110-7dbb2e19d98f
       m_Path: <Mouse>/leftButton
       m_Interactions: 
       m_Processors: 
@@ -2282,7 +2282,7 @@ MonoBehaviour:
     m_Flags: 0
   waitingForTileChoose: 0
   rotateTileData: {fileID: 0}
-  randomTileGen: 20
+  randomTileGen: 10
   playerMovement: {fileID: 774206312}
   startingTile: {fileID: 11400000, guid: 6c1cb1724b225b04790374799cb81c69, type: 2}
   endingTile: {fileID: 11400000, guid: be908251886902d49bddbf1dcb74544d, type: 2}
@@ -2430,7 +2430,7 @@ MonoBehaviour:
   mainDeck: {fileID: 1567467025}
   discardPile: {fileID: 1906425421}
   playerInput: {fileID: 774206315}
-  debugCard: {fileID: 0}
+  debugCard: {fileID: 11400000, guid: bb0d05c7f56c71c4baeb31a2fefe96cb, type: 2}
 --- !u!1 &1904170456208060004
 GameObject:
   m_ObjectHideFlags: 0
