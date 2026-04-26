@@ -22,6 +22,15 @@ public class MainDeck : TileCollection
             this.DealOneTo(handManager);
         }
     }
+    public void FillHand()
+    {
+        handManager.WashHandToDraw();
+
+        for (int i = 0; i < 5; i++)
+        {
+            this.DealOneTo(handManager);
+        }
+    }
 
     public void LoadFromLevelData(TileEntry[] entries)
     {
