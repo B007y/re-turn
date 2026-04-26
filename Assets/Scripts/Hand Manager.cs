@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class HandManager : TileCollection
 {
-    int maxCards = 5;
+    public int maxCards = 5;
     [SerializeField] CardDisplay selectedCard;
-    [SerializeField] List<CardDisplay> handCards = new();
+    [SerializeField] public List<CardDisplay> handCards = new();
     [SerializeField] GameObject cardPrefab;
     [SerializeField] Transform handParent;
 
