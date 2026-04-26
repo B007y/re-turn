@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
     // size of the board
-    [SerializeField] Vector2 gridSize;
+    [SerializeField] Vector2Int gridSize;
     // gap between tiles
-    [SerializeField] Vector2 gridGap;
+    [SerializeField] Vector2Int gridGap;
     // object size of a single tile
     [SerializeField] Vector2 tileSize;
     // 2d array of tile objects
@@ -41,7 +42,7 @@ public class GridManager : MonoBehaviour
         for (int i = 0; i < gridSize.x; i++)
         {
             tiles[i] = new TileBase[(int)gridSize.y];
-
+            
             // spawn empty tile on every grid position
             for (int j = 0; j < gridSize.y; j++)
             {
@@ -49,7 +50,7 @@ public class GridManager : MonoBehaviour
                 newObj.transform.SetParent(tileParent);
 
                 TileBase tile = newObj.GetComponent<TileBase>();
-                PutTileOnGrid(tile, new Vector2(i, j));
+               // PutTileOnGrid(tile, new Vector2(i, j));
             }
         }
     }
@@ -72,30 +73,30 @@ public class GridManager : MonoBehaviour
     }
 
     // place a tile on the grid at the specified position if it's available
-    void PutTileOnGrid(TileBase tile, Vector2 position)
+    public void PutTileOnGrid(TileBase tile, Vector2 position)
     {
         if (CheckPositionAvailability(position))
         {
             // place the tile on the grid
             tiles[(int)position.x][(int)position.y] = tile;
-
+            Debug.Log(position);
             // save position in tile object
             // tile.setCellPosition(position);
         }
     }
 
     // remove a tile from the grid at the specified position if there's a tile there
-    void RemoveTileFromGrid(Vector2 position)
+    public void RemoveTileFromGrid(Vector2 position)
     {
         if (CheckPositionOccupied(position))
         {
             // replace the tile with an empty tile
-            tiles[(int)position.x][(int)position.y] = tilePrefabs.GetComponent<TileBase>();
+            tiles[(int)position.x][(int)position.y] = null;
         }
     }
 
     // check if the specified position on the grid is available for placing a tile
-    bool CheckPositionAvailability(Vector2 position)
+    public bool CheckPositionAvailability(Vector2 position)
     {
         // check if the position is within the grid bounds
         if (position.x < 0 || position.x >= gridSize.x || position.y < 0 || position.y >= gridSize.y)
@@ -134,5 +135,112 @@ public class GridManager : MonoBehaviour
         return false;
     }
 
+    public TileBase[] GetValidTilesByDirections(int[] directions, Vector2 startPosition)
+    {
+        TileBase[] tilesToReturn = { };
 
+        foreach (int direction in directions)
+        {
+            switch(direction)
+            {
+                case 1:
+                    {
+                        if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null) 
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y + 1]);
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x + 1][(int)startPosition.y]);
+                        }
+                        break;
+                    }
+                case 3: 
+                    {
+                        if (startPosition.y == 0) break;
+                        if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x][(int)startPosition.y - 1]);
+                        }
+                        break; 
+                    }
+                case 4:
+                    {
+                        if (startPosition.x == 0) break;
+                        if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
+                        {
+                            tilesToReturn.Append(tiles[(int)startPosition.x - 1][(int)startPosition.y]);
+                        }
+                        break;
+                    }
+
+            }
+        }
+
+        return tilesToReturn;
+    }
+
+    public TileBase GetTileByDirection(int direction, Vector2 startPosition)
+    {
+        switch (direction)
+        {
+            case 1:
+                {
+                    if (tiles[(int)startPosition.x][(int)startPosition.y + 1] != null)
+                    {
+                        if (tiles[(int)startPosition.x][(int)startPosition.y + 1].GetDirectionValid(3))
+                            return tiles[(int)startPosition.x][(int)startPosition.y + 1];
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    if (tiles[(int)startPosition.x + 1][(int)startPosition.y] != null)
+                    {
+                        if(tiles[(int)startPosition.x + 1][(int)startPosition.y].GetDirectionValid(4))
+                            return tiles[(int)startPosition.x + 1][(int)startPosition.y];
+                    }
+                    break;
+                }
+            case 3:
+                {
+                    if (startPosition.y == 0) break;
+                    if (tiles[(int)startPosition.x][(int)startPosition.y - 1] != null)
+                    {
+                        if(tiles[(int)startPosition.x][(int)startPosition.y - 1].GetDirectionValid(1))
+                            return tiles[(int)startPosition.x][(int)startPosition.y - 1];
+                    }
+                    break;
+                }
+            case 4:
+                {
+                    if (startPosition.x == 0) break;
+                    if (tiles[(int)startPosition.x - 1][(int)startPosition.y] != null)
+                    {
+                        if(tiles[(int)startPosition.x - 1][(int)startPosition.y].GetDirectionValid(2))
+                            return tiles[(int)startPosition.x - 1][(int)startPosition.y];
+                    }
+                    break;
+                }
+        }
+        return null;
+    }
+
+    public void PrintGrid()
+    {
+        string gridmsg = "\n";
+        for (int i = 0; i < gridSize.y; i++)
+        {
+            for (int j = 0; j < gridSize.x; j++)
+            {
+                gridmsg += (tiles[j][i] == null ? "0" : "1");
+            }
+            gridmsg += "\n";
+        }
+        Debug.Log(gridmsg);
+    }
 }

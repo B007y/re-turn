@@ -15,7 +15,6 @@ public class UIHandler : MonoBehaviour
     [SerializeField] InputAction ESCKey;
     [SerializeField] float TimerSeconds = 0;
     float Timer = 0;
-    //test
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
