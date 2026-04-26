@@ -82,11 +82,11 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer(int Direction)
     {
         if (CurrentTile == null) SetPlayer();
+        if (timer > 0) return;
+        if (moveCoroutine != null) return;
 
         SetPlayerFacing(Direction);
         if (!CurrentTile.GetDirectionValid(Direction)) return;
-        if (timer > 0) return;
-        if (moveCoroutine != null) return;
 
         timer = TimerMax;
 
