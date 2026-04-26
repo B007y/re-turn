@@ -1151,7 +1151,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   TimerSeconds: 0.2
-  sceneToLoad: 
+  sceneToLoad: demo
 --- !u!4 &2084358811
 Transform:
   m_ObjectHideFlags: 0
