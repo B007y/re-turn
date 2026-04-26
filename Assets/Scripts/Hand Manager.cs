@@ -21,11 +21,10 @@ public class HandManager : TileCollection
     {
         // Example cards for testing
         MaxCard = maxCards;
-        for (int i = 0; i < maxCards; i++)
-        {
-            mainDeck.DealOneTo(this);
-        }
+    }
 
+    void Awake()
+    {
         // hook right click action to deselect card
         rightClickAction = playerInput?.actions.FindActionMap("UI").FindAction("RightClick");
         if (rightClickAction != null)
@@ -33,6 +32,7 @@ public class HandManager : TileCollection
             rightClickAction.performed += ctx => DeselectCard();
             rightClickAction.Enable();
         }
+
     }
 
     // add a card to the hand, if the hand is not full
