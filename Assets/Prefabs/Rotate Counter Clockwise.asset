@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rotate Counter Clockwise
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   TileName: Rotate Counter Clockwise
-  sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: -5735840168443264487, guid: 68c97525044d0694aad43fef077e51fc, type: 3}
   openDirections: 
   isRotationCard: 1
   rotateClockWise: 0

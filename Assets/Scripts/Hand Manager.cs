@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class HandManager : TileCollection
 {
-    int maxCards = 5;
+    public int maxCards = 5;
     [SerializeField] CardDisplay selectedCard;
-    [SerializeField] List<CardDisplay> handCards = new();
+    [SerializeField] public List<CardDisplay> handCards = new();
     [SerializeField] GameObject cardPrefab;
     [SerializeField] Transform handParent;
 
@@ -139,6 +139,10 @@ public class HandManager : TileCollection
         }
         else
         {
+            if (selectedTileObj?.tileData.isRotationCard == true)
+            {
+                TilesObjPool.Instance.ReturnTile(selectedTileObj);
+            }
             selectedTileObj = null;
         }
     }
@@ -160,13 +164,16 @@ public class HandManager : TileCollection
     {
         // assume all cards are tile
         bool played = x == 0;
+        Debug.Log("Card played callback received with value: " + x);
         RemoveCard(selectedCard, played);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/TilePlace", Vector3.zero);
     }
 
     // set the selected card when a card is clicked
     public void OnCardClicked(CardDisplay card)
     {
         SelectCard(card);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/TileSelect", Vector3.zero);
     }
 
     // debug -------------

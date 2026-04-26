@@ -45,7 +45,7 @@ public class TileBase : MonoBehaviour
     {
         this.tileData = tileData;
         this.tileSprite = tileData.sprite;
-        this.openDirections = tileData.openDirections;
+        this.openDirections = tileData.openDirections.Clone() as int[];
         this.onCardPlayedCallback = OnCardPlayed;
 
         SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
@@ -59,12 +59,7 @@ public class TileBase : MonoBehaviour
     {
         if (selected)
         {
-            if (tileData.isRotationCard)
-            {
-                gridManagerRef.InitRotation(tileData);
-                onCardPlayedCallback?.Invoke(0);
-            }
-            else
+            if (!tileData.isRotationCard)
             {
                 PlaceTile();
             }
@@ -74,6 +69,10 @@ public class TileBase : MonoBehaviour
     public void SelectTile()
     {
         selected = true;
+        if (tileData.isRotationCard)
+        {
+            GridManager.Instance.InitRotation(tileData, onCardPlayedCallback);
+        }
     }
 
     public void DeselectTile()
@@ -107,45 +106,22 @@ public class TileBase : MonoBehaviour
         }
     }
 
-    public void RotateTile(int amount, bool right)
+    public void RotateTile(int amount, bool clockwise)
     {
-        switch (right)
+        switch (clockwise)
         {
             case true:
-                foreach (int direction in openDirections)
+                for (int i = 0; i < openDirections.Length; i++)
                 {
-                    if (openDirections[direction] != 0)
-                        if (openDirections[direction] != 0)
-                        {
-                            openDirections[direction] += amount;
-
-                            if (openDirections[direction] < 4)
-                            {
-                                openDirections[direction] -= 4;
-                                if (openDirections[direction] < 4)
-                                {
-                                    openDirections[direction] -= 4;
-                                }
-                            }
-
-
-                        }
-
+                    openDirections[i] += amount;
+                    if (openDirections[i] > 4) openDirections[i] = 1;
                 }
                 break;
             case false:
-                foreach (int direction in openDirections)
+                for (int i = 0; i < openDirections.Length; i++)
                 {
-                    if (openDirections[direction] != 0)
-                    {
-                        openDirections[direction] -= amount;
-
-                        if (openDirections[direction] > 4)
-                        {
-                            openDirections[direction] += 4;
-                        }
-                    }
-
+                    openDirections[i] -= amount;
+                    if (openDirections[i] < 1) openDirections[i] = 4;
                 }
                 break;
         }

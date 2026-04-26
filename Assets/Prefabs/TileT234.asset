@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866192de753888542b0f093764051769, type: 3}
   m_Name: TileT234
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  TileName: TileT234
+  TileName: T-Bone
   sprite: {fileID: 2252642490635412699, guid: 4310819c9fbbd6b4cb37f27f416ab01f, type: 3}
   openDirections: 020000000300000004000000
+  isRotationCard: 0
+  rotateClockWise: 1

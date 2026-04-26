@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866192de753888542b0f093764051769, type: 3}
   m_Name: TileStraight24
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  TileName: TileStraight24
+  TileName: Straight
   sprite: {fileID: 2546458305931194026, guid: b70c630b8a2756e4891a7cd7598296c3, type: 3}
   openDirections: 0200000004000000
+  isRotationCard: 0
+  rotateClockWise: 1

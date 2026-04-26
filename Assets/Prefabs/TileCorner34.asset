@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866192de753888542b0f093764051769, type: 3}
   m_Name: TileCorner34
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  TileName: TileCorner34
+  TileName: Corner
   sprite: {fileID: 8852821539225161741, guid: 5e0bc477a2449e648b64d60feb46ac85, type: 3}
   openDirections: 0300000004000000
+  isRotationCard: 0
+  rotateClockWise: 1
