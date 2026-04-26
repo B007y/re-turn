@@ -1248,6 +1248,19 @@ MonoBehaviour:
   emptyTilePrefabs: {fileID: 0}
   tilePrefabs: {fileID: 8062100705751506593, guid: 9932df07be4c09446874753519e4fe24, type: 3}
   tileParent: {fileID: 0}
+  rotationRadius: 1
+  rotationAnchor: {fileID: 0}
+  MouseLeftAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1aa7f629-5b59-4a0f-a00a-c2798639bdb6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  waitingForTileChoose: 0
+  rotateTileData: {fileID: 0}
   playerMovement: {fileID: 0}
   startingTile: {fileID: 0}
   endingTile: {fileID: 0}
