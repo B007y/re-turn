@@ -172,6 +172,12 @@ public class HandManager : TileCollection
     // set the selected card when a card is clicked
     public void OnCardClicked(CardDisplay card)
     {
+        if (selectedCard == card)
+        {
+            DeselectCard();
+            return;
+        }
+        
         SelectCard(card);
         FMODUnity.RuntimeManager.PlayOneShot("event:/TileSelect", Vector3.zero);
     }

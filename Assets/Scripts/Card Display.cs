@@ -38,6 +38,12 @@ public class CardDisplay : MonoBehaviour
     // callback -------------------
     public void OnCardClicked()
     {
+        if (isSelecting)
+        {
+            isSelecting = false;
+            return;
+        }
+
         onClickCallback?.Invoke(this);
     }
 
