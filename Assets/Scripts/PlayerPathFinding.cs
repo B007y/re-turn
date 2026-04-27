@@ -117,6 +117,7 @@ public class PlayerPathFinding : MonoBehaviour
 
 
         bool active = true;
+        bool found = false;
 
         while(frontier.Count > 0 && active)
         {
@@ -127,7 +128,12 @@ public class PlayerPathFinding : MonoBehaviour
             if(currentSearchNode.tile.transform.position == pathEndTile.transform.position)
             {
                 active = false;
+                found = true;
             }
+        }
+        if (!found && Teleportation)
+        {
+            teleportationState = 2;
         }
         Debug.Log("End of search node neighbor" + currentSearchNode.connectedTo.tile.transform.position);
         return currentSearchNode;
