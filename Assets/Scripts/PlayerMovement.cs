@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     GridManager gridManager;
 
     public TileBase CurrentTile;
+    [SerializeField] PlayerPathFinding eurydice;
 
     [SerializeField] float TimerMax = 0.2f;
     float timer = 0;
@@ -82,11 +84,11 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer(int Direction)
     {
         if (CurrentTile == null) SetPlayer();
+        if (timer > 0) return;
+        if (moveCoroutine != null) return;
 
         SetPlayerFacing(Direction);
         if (!CurrentTile.GetDirectionValid(Direction)) return;
-        if (timer > 0) return;
-        if (moveCoroutine != null) return;
 
         timer = TimerMax;
 
@@ -112,6 +114,12 @@ public class PlayerMovement : MonoBehaviour
                 moveCoroutine = StartCoroutine(MovePlayerCoroutine(tile.transform.position));
         }
         CurrentTile = tile;
+
+        GridManager.Instance.CheckPlayerReachedEnd(tile);
+        if (CurrentTile == eurydice.CurrentTile)
+        {
+            SceneManager.LoadScene("LoseScene");
+        }
     }
 
     void SetPlayerFacing(int Direction)
