@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         PrintTileAction.Enable();
 
         gridManager = FindAnyObjectByType<GridManager>();
+        eurydice = FindAnyObjectByType<PlayerPathFinding>();
         //StartingTile = GameObject.FindWithTag("Starting Tile");
         //Debug.Log(StartingTile);
     }
