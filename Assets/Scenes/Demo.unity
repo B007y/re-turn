@@ -957,8 +957,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1831865103}
         m_TargetAssemblyTypeName: PlayerPathFinding, Assembly-CSharp
-        m_MethodName: StartPathFinding
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
@@ -966,10 +966,10 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
       - m_Target: {fileID: 2034565881}
         m_TargetAssemblyTypeName: GridManager, Assembly-CSharp
-        m_MethodName: NextTurn
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -978,7 +978,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
 --- !u!114 &1238129613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,6 +1270,8 @@ MonoBehaviour:
   - tile: {fileID: 11400000, guid: fba8518c82f34ee4c855bd8ff73a5417, type: 2}
     count: 10
   handManager: {fileID: 1831214087118392666}
+  gridManager: {fileID: 2034565881}
+  e: {fileID: 1831865103}
 --- !u!4 &1567467026
 Transform:
   m_ObjectHideFlags: 0

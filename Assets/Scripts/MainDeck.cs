@@ -12,6 +12,8 @@ public class MainDeck : TileCollection
 {
     [SerializeField] TileEntry[] levelTiles;
     [SerializeField] HandManager handManager;
+    [SerializeField] GridManager gridManager;
+    [SerializeField] PlayerPathFinding e;
 
     void Start()
     {
@@ -35,6 +37,8 @@ public class MainDeck : TileCollection
                 {
                     this.DealOneTo(handManager);
                 }
+                e.StartPathFinding();
+                gridManager.NextTurn();
             }
             else
             {
