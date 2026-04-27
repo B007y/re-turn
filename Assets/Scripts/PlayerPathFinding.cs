@@ -31,6 +31,7 @@ public class PlayerPathFinding : MonoBehaviour
     TileNode currentSearchNode;
 
     public TileBase CurrentTile;
+    public bool running = false;
 
     [Header("Optional Effects")]
     [SerializeField] bool IncreasePowerByTurn = false;
@@ -44,6 +45,9 @@ public class PlayerPathFinding : MonoBehaviour
         GridManagerRef = FindAnyObjectByType<GridManager>();
         PlayerRef = FindAnyObjectByType<PlayerMovement>();
         forceTesting.Enable();
+
+        gameObject.SetActive(false);
+        running = false;
     }
 
     // Update is called once per frame
@@ -86,7 +90,8 @@ public class PlayerPathFinding : MonoBehaviour
             startingTileNode = new TileNode(StartingTile);
             Move(GetNewPath(StartingTile, playerTile));
 
-            if (transform.position == playerTile.transform.position)
+            // if (transform.position == playerTile.transform.position)
+            if (CurrentTile == PlayerRef.CurrentTile)
             {
                 SceneManager.LoadScene("LoseScene");
             }
