@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -30,6 +32,12 @@ public class PlayerPathFinding : MonoBehaviour
 
     public TileBase CurrentTile;
 
+    [Header("Optional Effects")]
+    [SerializeField] bool IncreasePowerByTurn = false;
+    [SerializeField] bool Teleportation = false;
+    int teleportationState = 0;
+    TileBase LastTileFoundFromPlayer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -50,6 +58,11 @@ public class PlayerPathFinding : MonoBehaviour
 
     public void StartPathFinding()
     {
+        if(IncreasePowerByTurn)
+        {
+            MovesPerTurn++;
+        }
+
         // Gets the object's position tile (start) and the player tile (destination)
         //Debug.Log(transform.position + " " + transform.forward);
         StartingTile = GridManagerRef.GetTileAtPosition(transform.position);
@@ -59,6 +72,17 @@ public class PlayerPathFinding : MonoBehaviour
         // If the player is reachable, it will start finding a path
         if (playerTile != null && StartingTile != null)
         {
+            if (teleportationState > 0)
+            {
+                if (teleportationState == 1 && LastTileFoundFromPlayer != null)
+                {
+                    transform.position = LastTileFoundFromPlayer.transform.position;
+                    CurrentTile = LastTileFoundFromPlayer;
+                }
+                LastTileFoundFromPlayer = playerTile;
+                teleportationState--;
+                return;
+            }
             startingTileNode = new TileNode(StartingTile);
             Move(GetNewPath(StartingTile, playerTile));
 
