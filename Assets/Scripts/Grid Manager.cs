@@ -252,8 +252,13 @@ public class GridManager : MonoBehaviour
         PutTileOnGrid(tile, roundVector2);
         playerMovement.StartingTile = tile;
         playerMovement.SetPlayer();
+    }
 
-        eurydice.StartingTile = tile;
+    public void SpawnEurydice()
+    {
+        eurydice.gameObject.SetActive(true);
+        eurydice.running = true;
+        eurydice.StartingTile = startingTileObj;
         eurydice.InitPosition();
     }
 
@@ -431,7 +436,7 @@ public class GridManager : MonoBehaviour
                         {
                             if (tile.GetDirectionValid(3))
                             {
-                                CheckPlayerReachedEnd(tile);
+                                // CheckPlayerReachedEnd(tile);
                                 return tile;
                             }
                         }
@@ -441,7 +446,7 @@ public class GridManager : MonoBehaviour
                         TileBase tile = tiles[startPosition.y + 1][startPosition.x];
                         if (tile != null && tile.GetDirectionValid(3))
                         {
-                            CheckPlayerReachedEnd(tile);
+                            // CheckPlayerReachedEnd(tile);
                             return tile;
                         }
                     }
@@ -456,7 +461,7 @@ public class GridManager : MonoBehaviour
                         {
                             if (tile.GetDirectionValid(4))
                             {
-                                CheckPlayerReachedEnd(tile);
+                                // CheckPlayerReachedEnd(tile);
                                 return tile;
                             }
                         }
@@ -466,7 +471,7 @@ public class GridManager : MonoBehaviour
                         TileBase tile = tiles[startPosition.y][startPosition.x + 1];
                         if (tile != null && tile.GetDirectionValid(4))
                         {
-                            CheckPlayerReachedEnd(tile);
+                            // CheckPlayerReachedEnd(tile);
                             return tile;
                         }
                     }
@@ -481,7 +486,7 @@ public class GridManager : MonoBehaviour
                         {
                             if (tile.GetDirectionValid(1))
                             {
-                                CheckPlayerReachedEnd(tile);
+                                // CheckPlayerReachedEnd(tile);
                                 return tile;
                             }
                         }
@@ -492,7 +497,7 @@ public class GridManager : MonoBehaviour
                         TileBase tile = tiles[startPosition.y - 1][startPosition.x];
                         if (tile != null && tile.GetDirectionValid(1))
                         {
-                            CheckPlayerReachedEnd(tile);
+                            // CheckPlayerReachedEnd(tile);
                             return tile;
                         }
                     }
@@ -507,7 +512,7 @@ public class GridManager : MonoBehaviour
                         {
                             if (tile.GetDirectionValid(2))
                             {
-                                CheckPlayerReachedEnd(tile);
+                                // CheckPlayerReachedEnd(tile);
                                 return tile;
                             }
                         }
@@ -517,7 +522,7 @@ public class GridManager : MonoBehaviour
                         TileBase tile = tiles[startPosition.y][startPosition.x - 1];
                         if (tile != null && tile.GetDirectionValid(2))
                         {
-                            CheckPlayerReachedEnd(tile);
+                            // CheckPlayerReachedEnd(tile);
                             return tile;
                         }
                     }
@@ -561,7 +566,7 @@ public class GridManager : MonoBehaviour
 
     public void CheckPlayerReachedEnd(TileBase tile)
     {
-        if (tile.transform.position == spawnedEndingTile.transform.position)
+        if (tile == endingTileObj)
         {
             SceneManager.LoadScene("WinScene");
         }
@@ -570,6 +575,10 @@ public class GridManager : MonoBehaviour
     public void NextTurn()
     {
         turnCount++;
+        if (turnCount == 2)
+        {
+            SpawnEurydice();
+        }
         if (turnCount >= maxTurn)
         {
             SceneManager.LoadScene("LoseScene");

@@ -37,7 +37,8 @@ public class MainDeck : TileCollection
                 {
                     this.DealOneTo(handManager);
                 }
-                e.StartPathFinding();
+                if (e.running)
+                    e.StartPathFinding();
                 gridManager.NextTurn();
             }
             else
