@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class MainDeck : TileCollection
     [SerializeField] HandManager handManager;
     [SerializeField] GridManager gridManager;
     [SerializeField] PlayerPathFinding e;
+    [SerializeField] TextMeshProUGUI text;
 
     void Start()
     {
@@ -30,7 +32,8 @@ public class MainDeck : TileCollection
         {
 
             if (handManager.handCards.Count < handManager.maxCards) 
-            { 
+            {
+                text.text = "";
                 handManager.WashHandToDraw();
 
                 for (int i = 0; i < 5; i++)
@@ -42,7 +45,8 @@ public class MainDeck : TileCollection
             }
             else
             {
-                Debug.Log("Insert play one card warning here");
+                
+                text.text = "Must play at least one Tile!";
             }
         }
     }
